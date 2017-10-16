@@ -1,8 +1,36 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #fcfcfc;
 }
 
-a {
-  color: #00B7FF;
+.main {
+  margin-top: 30px;
+}
+
+main {
+  flex: 0 1 auto;
+}
+
+.flex-container {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-2 {
+  flex: 2;
+}
+.flex-3 {
+  flex: 3;
+}
+.flex-4 {
+  flex: 4;
+}
+.cursor-default{
+  cursor:default;
+}
+.cursor-pointer {
+  cursor:pointer;
 }

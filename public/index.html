@@ -3,31 +3,72 @@
 <head>
 	<base href="/">
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>PetStore Demo with AngularJs+Express+NodeJs+MongoDb</title>
-	<link rel="stylesheet" href="/stylesheets/style.css">
+	
+
+	<!--
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+	-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	
-	
+	<link href="/stylesheets/materialize.min.css" rel="stylesheet" media="screen,projection"/>
+	<link href="/stylesheets/style.css" rel="stylesheet">
+	<!--<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet">-->
+
+	<script src="/javascripts/angular.min.js"></script>
+	<script src="/javascripts/angular-resource.min.js"></script>
+	<script src="/javascripts/angular-route.min.js"></script>
+	<script src="/javascripts/angular-animate.min.js"></script>
+
+
 	<script src="/app/app.module.js"></script>
 	<script src="/app/app.config.js"></script>
+
+	<script src="/app/services/customer.service.js"></script>
+	<script src="/app/services/pet.service.js"></script>
+	<script src="/app/services/vet.factory.js"></script>
+	<script src="/app/services/vet.service.js"></script>
 	
-	<script src="/app/sample-module/sample-module.module.js"></script>
-	<script src="/app/sample-module/sample-module.component.js"></script>
+	<script src="/app/directive/show-detapicker.directive.js"></script>
+
+	<script src="/app/menu/menu.component.js"></script>
+	<script src="/app/index/index.component.js"></script>
+	<script src="/app/customer-list/customer-list.component.js"></script>
+	<script src="/app/customer-new/customer-new.component.js"></script>
+	<script src="/app/customer-edit/customer-edit.component.js"></script>
+	<script src="/app/customer-details/customer-details.component.js"></script>
+	<script src="/app/customer-by-id/customer-by-id.component.js"></script>
+	<script src="/app/pet-list/pet-list.component.js"></script>
+	<script src="/app/pet-new/pet-new.component.js"></script>
+	<script src="/app/pet-edit/pet-edit.component.js"></script>
+	<script src="/app/pet-details/pet-details.component.js"></script>
+	<script src="/app/pet-by-owner/pet-by-owner.component.js"></script>
+	<script src="/app/pet-new-by-owner/pet-new-by-owner.component.js"></script>
+	<script src="/app/vet-list/vet-list.component.js"></script>
+	<script src="/app/vet-new/vet-new.component.js"></script>
+	<script src="/app/vet-edit/vet-edit.component.js"></script>
+	<script src="/app/vet-details/vet-details.component.js"></script>
 
 	</head>
 <body>
-
-	<div>
-		<div ng-view></div>
-	</div>
-
+	<main>
+	<app></app>
+</main>
+	
+	<script src="/javascripts/jquery-3.2.1.min.js"></script>
+	<script src="/javascripts/materialize.min.js"></script>
+	<script src="/javascripts/script.js"></script>
 </body>
 </html>

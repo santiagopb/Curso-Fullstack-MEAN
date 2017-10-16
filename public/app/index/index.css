@@ -1,0 +1,12 @@
+header.jumbotron {
+  background: url('http://lorempixel.com/1800/600/animals/') no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  color: #fff;
+  /*text-shadow: 1px 2px #000000;*/
+  text-align: center;
+  padding-top: 120px;
+  padding-bottom: 120px;
+}

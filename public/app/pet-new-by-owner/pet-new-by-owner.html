@@ -1,0 +1,31 @@
+<div class="card">
+        <div class="card-content">
+            <span class="card-title">NUEVA MASCOTA<a class="btn-floating waves-effect waves-light right"><i ng-click="$ctrl.pet.save($ctrl.item);" class="material-icons" style="line-height: inherit !important;">save</i></a></span>
+            <div class="row">
+                <div class="input-field">
+                    <input id="name" type="text" ng-model="$ctrl.item.name" class="validate">
+                    <label class="active" for="name">Nombre</label>
+                </div>
+                <div class="input-field">
+                    <input id="birthday" type="text" ng-model="$ctrl.item.birthday" class="datepicker" showDatepicker>
+                    <label class="active" for="birthday">Fecha de Nacimiento</label>
+                </div>
+                <div class="input-field">
+                    <input id="specie" type="text" ng-model="$ctrl.item.specie" class="validate">
+                    <label class="active" for="specie">Especie</label>
+                </div>
+                <div class="input-field">
+                    <input id="race" type="text" ng-model="$ctrl.item.race" class="validate">
+                    <label class="active" for="race">Raza</label>
+                </div>
+                <div class="input-field">
+                    <input id="chipNumber" type="text" ng-model="$ctrl.item.chipNumber" class="validate">
+                    <label class="active" for="chipNumber">Numero de Chip</label>
+                </div>
+                <div class="input-field">
+                    <input id="description" type="text" ng-model="$ctrl.item.description" class="validate">
+                    <label class="active" for="description">Descripcion</label>
+                </div>
+            </div>
+        </div>
+    </div>

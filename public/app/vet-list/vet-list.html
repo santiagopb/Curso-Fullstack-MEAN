@@ -1,0 +1,25 @@
+<div class="form-group flex-container ">
+    <input ng-model="search" class="form-control flex-1" placeholder="Buscar">
+    <span class="flex-1"></span>
+    <span class="flex-1 text-right">
+        <a ng-href="/veterinarios/nuevo">
+            <i class="fa fa-user-plus fa-2x cursor-pointer" aria-hidden="true"></i>
+        </a>
+    </span>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="vet in vet.data | filter:search">
+            <td>{{ $index + 1 }}</td>
+            <td><a ng-href="veterinarios/{{vet._id}}">{{ vet.name }}</a></td>
+            <td class="text-right"><i ng-click="vet.delete(vet);" class="fa fa-trash cursor-pointer text-danger" aria-hidden="true"></i></td>
+        </tr>
+    </tbody>
+</table>

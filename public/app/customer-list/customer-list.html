@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card">
+            <div class="card-image">
+                <img src="/images/dog.jpg">
+                <a ng-href="/clientes/nuevo" class="btn-floating halfway-fab btn-large waves-effect waves-light"><i class="material-icons ">person_add</i></a>
+            </div>
+            <div class="card-content">
+                <span class="card-title">Lista de Clientes</span>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" class="validate" ng-model="search" placeholder="Buscar">
+                    </div>
+                </div>
+            </div>
+            <div class="card-action flex-container" ng-repeat="customer in $ctrl.customer.data | filter:search">
+                <span class="flex-1"><a ng-href="clientes/{{customer._id}}" style="line-height: 3 !important;">{{ customer.firstName }} {{ customer.lastName }}</a></span>
+                <a class="btn-floating waves-effect waves-light red"><i ng-click="$ctrl.customer.delete(customer);" class="material-icons">delete</i></a>
+            </div>
+        </div>
+    </div>
+</div>
