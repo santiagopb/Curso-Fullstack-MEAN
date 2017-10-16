@@ -90,11 +90,13 @@ module.exports = (router) => {
           res.json({ success: false, message: 'Debes escribir un nombre para el Veterinario' });
           return;
         }
-        Pet.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, data) => {
-          if (err) {
+        Pet.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, pet) => {
+            console.log(req.body);
+            if (err) {
             res.json({ success: false, message: err });
           } else {
-            res.json({ success: true, message: 'Client Saved!' });
+            console.log(pet);
+            res.json(pet);
           }
         })
       });
