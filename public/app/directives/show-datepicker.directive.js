@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('showDatepicker', [])
-	.directive('showDatepicker', {
+	.directive('showDatepicker', function(){
 		return {
 	        restrict: "A",
 	        link: function(scope, elem, attrs) {
-	        	$('elem').pickadate({
+	        	$('.datepicker').pickadate({
 	        	    selectMonths: true, // Creates a dropdown to control month
 	        	    selectYears: 30, // Creates a dropdown of 15 years to control year,
 	                labelMonthNext: 'Mes siguiente',

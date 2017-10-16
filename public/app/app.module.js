@@ -4,9 +4,13 @@ angular.module('petStore', [
     'ngAnimate',
     'ngResource',
     'ngRoute',
+    //Services
     'customer',
     'pet',
     'vet',
+    //Directives
+    'showDatepicker',
+    //Modules
     'menu',
     'index',
     'customerList',
@@ -109,7 +113,7 @@ angular.module('petStore', [
                 $scope.pet.data[ObjIndex].chipNumber = pet.chipNumber;
                 $scope.pet.data[ObjIndex].description = pet.description;
                 $scope.pet.data[ObjIndex].owner = pet.owner;
-                Materialize.toast('Los datos de la Mascota se han guardado con exito!!!', 4000, 'rounded');
+                Materialize.toast('Los datos de la Mascota se han actualizado con exito!!!', 4000, 'rounded');
             });
         } else { // SAVE
             petService.save({}, {

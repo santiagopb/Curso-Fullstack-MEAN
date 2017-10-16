@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('petNewByOwner', ['showDatepicker'])
+angular.module('petNewByOwner', [])
     .component('petNewByOwner', {
         templateUrl:'/app/pet-new-by-owner/pet-new-by-owner.html',
         bindings: {
