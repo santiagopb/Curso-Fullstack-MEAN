@@ -13,6 +13,7 @@ angular.module('petStore', [
     //Modules
     'menu',
     'index',
+    'appointmentCalendar',
     'customerList',
     'customerNew',
     'customerEdit',

@@ -11,6 +11,7 @@ const router = express.Router();
 const customers = require('./routes/customers')(router);
 const pets = require('./routes/pets')(router);
 const vets = require('./routes/vets')(router);
+const appointments = require('./routes/appointments')(router);
 
 var app = express();
 
@@ -30,6 +31,7 @@ mongoose.connect('mongodb://localhost/petStore', { useMongoClient: true });
 app.use('/api', customers);
 app.use('/api', pets);
 app.use('/api', vets);
+app.use('/api', appointments);
 
 
 //Front End

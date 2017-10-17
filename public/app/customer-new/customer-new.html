@@ -4,6 +4,6 @@
         <customer-details customer="$ctrl.customer" item="item"></customer-details>
     </div>
     <div class="col s12 m6">
-        <pet-by-owner customer-id="item._id" pet="$ctrl.pet"></pet-by-owner>
+        <pet-by-owner ng-if="item._id" customer-id="item._id" pet="$ctrl.pet"></pet-by-owner>
     </div>
 </div>
