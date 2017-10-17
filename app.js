@@ -12,6 +12,7 @@ const customers = require('./routes/customers')(router);
 const pets = require('./routes/pets')(router);
 const vets = require('./routes/vets')(router);
 const appointments = require('./routes/appointments')(router);
+const seeds = require('./routes/seeds')(router);
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/api', customers);
 app.use('/api', pets);
 app.use('/api', vets);
 app.use('/api', appointments);
+app.use('/seed', seeds);
 
 
 //Front End

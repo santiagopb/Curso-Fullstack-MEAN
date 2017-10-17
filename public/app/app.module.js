@@ -25,6 +25,7 @@ angular.module('petStore', [
     'petDetails',
     'petByOwner',
     'petNewByOwner',
+    'petUploadFile',
     'vetList',
     'vetNew',
     'vetEdit',
@@ -118,7 +119,7 @@ angular.module('petStore', [
             });
         } else { // SAVE
             petService.save({}, {
-                photoUrl: pet.photoUrl,
+                photoUrl: '',
                 name: pet.name,
                 birthday: pet.birthday,
                 specie: pet.specie,
@@ -141,7 +142,16 @@ angular.module('petStore', [
             $scope.pet.data.splice(index, 1);
         });
     }
-
+    $scope.pet.upload = function (_id, photoUrl) {
+        console.log(_id, photoUrl);
+        /*petService.upload({ id: pet._id }, {
+            photoUrl: pet.photoUrl
+        }, (data)=>{
+            console.log('ok');
+        }, (err) => {
+            console.log('err')
+        });*/
+    }
 
 
 }).component('app', {

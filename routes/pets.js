@@ -1,5 +1,6 @@
 const Pet = require('../models/pet');
 const Customer = require('../models/customer');
+const multer = require('multer');
 
 module.exports = (router) => {
 
@@ -65,8 +66,9 @@ module.exports = (router) => {
             return;
         }
         */
+
         const pet = new Pet({
-            photoUrl: req.body.photoUrl,
+            photoUrl: '',
             name: req.body.name,
             birthday: req.body.birthday,
             specie: req.body.specie,
@@ -83,6 +85,31 @@ module.exports = (router) => {
           }
         })
       });
+
+      router.post('/pets/:id', (req, res, next) => {
+        const fileName = Date.now();
+        const storage = multer.diskStorage({
+            destination:'./public/uploads/',
+            filename: function(req, file, cb){
+                cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+            }
+        });
+        const upload = multer({ storage: storage }).single('photoUrl');
+
+
+            upload(req, res, (err) => {
+                if (err){
+                    res.json({success: false, message: err});
+                    return
+                } else {
+                    console.log(req.file);
+                }
+            })
+
+
+        console.log(req.file, req.params.id);
+        res.json(req.params.id);
+      })
 
       router.put('/pets/:id', (req, res, next) => {
         if (!req.body.name) {

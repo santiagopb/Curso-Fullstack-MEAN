@@ -1,8 +1,9 @@
 <div class="card">
     <div class="card-content">
-        <span class="card-title">DATOS DE LA MASCOTA<a class="btn-floating waves-effect waves-light right"><i ng-click="$ctrl.customer.delete(customer);" class="material-icons" style="line-height: inherit !important;">mode_edit</i></a></span>
+        <span class="card-title">DATOS DE LA MASCOTA</span>
         <div class="row">
             <customer-by-id id="$ctrl.item.owner" customer="$ctrl.customer"></customer-by-id>
+            <pet-upload-file pet="$ctrl.pet" item="$ctrl.item"></pet-upload-file>
             <div class="input-field">
                 <input id="name" type="text" ng-model="$ctrl.item.name" class="validate">
                 <label class="active" for="name">Nombre</label>

@@ -1,0 +1,14 @@
+<div ng-if="$ctrl.item._id" class="row">
+    <div class="file-field input-field col s10">
+        <div class="btn">
+            <span>Foto</span>
+            <input type="file" ng-model="photoUrl">
+        </div>
+        <div class="file-path-wrapper flex-container">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+    <div class="col s2">
+        <a class="btn-floating waves-effect waves-light right" style="margin-top:15px;"><i ng-click="$ctrl.pet.upload($ctrl.item._id, photoUrl);" class="material-icons" >save</i></a>
+    </div>
+</div>
