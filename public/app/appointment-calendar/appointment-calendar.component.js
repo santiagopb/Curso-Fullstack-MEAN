@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('appointmentCalendar', [])
+angular.module('appointmentCalendar', ['appointmentService'])
     .component('appointmentCalendar', {
         templateUrl:'/app/appointment-calendar/appointment-calendar.html',
 
-        controller: function($scope) {
+        controller: function(appointmentService, $scope) {
+        	$scope.calendar = appointmentService.getCalendar();
+        	
             $scope.back = () => {
                 window.history.back();
             }

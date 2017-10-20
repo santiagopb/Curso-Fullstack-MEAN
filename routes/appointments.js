@@ -36,41 +36,122 @@ module.exports = (router) => {
     });
 
     router.get('/appointments/:id', (req, res, next) => {
-        Appointment.findById({ _id: req.params.id }, (err, appointment) => {
-            if (err) {
-                res.json({ success: false, message: err });
-            } else {
-                res.json(appointment);
-            }
-        });
+    	console.log('-----------');
+    	if (req.params.id) {
+            Appointment.findById({ _id: req.params.id }, (err, appointment) => {
+                if (err) {
+                    res.json({ success: false, message: err });
+                } else {
+                    res.json(appointment);
+                }
+            });
+    	}
     });
 
-    router.get('/appointments/date/:date', (req, res, next) => {
-        const initdate = moment(req.params.date, 'YYYYMM').calendar();
-        const enddate = moment(initdate).add(1, 'month').calendar();
+    router.get('/appointments/:date', (req, res, next) => {
+    	console.log('lsdajkflsdkfj');
+    	if (req.params.date){
+            const initdate = moment(req.params.date, 'YYYYMM').calendar();
+            const enddate = moment(initdate).add(1, 'month').calendar();
+            
+            /*
+            Appointment.aggregate([
+                {
+                	"$match": {
+                		initDate: {
+                			$gte: new Date(initdate),
+                			$lte: new Date(enddate)
+                		}
+                	}
+                },
+                { 
+                    "$lookup": { 
+                        from: "Pet", 
+                        localField: "pet", 
+                        foreignField: "_id", 
+                        as: 'pet' 
+                    } 
+                },
+                {
+                    "$group": {
+                        _id: {$dayOfYear: "$initDate"},
+                        date: {"$first":"$initDate"},
+                        values: {
+                        	"$push": {
+                        		initHour: { "$concat":[
+                        			{"$substr":[{$hour: "$initDate"},0,2]},
+                        			{"$substr":[{$minute: "$initDate"},0,2]}
+                        			]
+                        		},
+                        		endHour: {$hour: "$endDate"},
+                        		pet: "$pet",
+                        		vet: "$vet"
+                        			
+                        	}
+                        },
+                        total: { $sum: 1 }
+                    }
+                },
+                {
+                	"$project": {
+                		_id: 0,
+                		date: 1,
+                		values: 1,
+                		pet: 1
+                	}
+                },
+                { 
+            		"$sort":{
+            			date: 1
+            		} 
+            	}
+            ],
+            function(err,results) {
+                if (err) console.log('ERROR------------------');
+                else{
+                	res.json(results);
 
-        Appointment.find({
-            initDate: {
-                $gte: initdate,
-                $lte: enddate
-            }
-        }, 'initDate endDate pet', (err, appointments) => {
-            if (err) {
-                res.json({ success: false, message: err });
-            } else {
-                res.json(appointments);
-            }
-        }).populate({
-            path: 'pet',
-            model: 'Pet',
-            select: 'name specie',
-            populate: {
-                path: 'owner',
-                model: 'Customer',
-                select: 'firstName lastName'
-            }
-        }).sort({ 'initDate': -1 });
+                    
+                }
+                
+            })
+            */
+           
 
+            Appointment.find({
+                initDate: {
+                    $gte: initdate,
+                    $lte: enddate
+                }
+            }, (err, appointments) => {
+                if (err) {
+                    res.json({ success: false, message: err });
+                } else {
+                	appointments = appointments.reduce(function(mapa, item){
+                		date = moment(item.initDate).format('YYYY-MM-DD');
+                		time = moment(item.initDate).format('HH:mm');
+                		if (!mapa) var mapa={};
+                		if (!mapa[date]) mapa[date] = {}
+                		if (!mapa[date][time]) mapa[date][time] = item
+                		
+                		return mapa;
+                	},{})
+                    
+                	res.json({appointments});
+                }
+            }).populate({
+                path: 'pet',
+                model: 'Pet',
+                select: 'name specie',
+                populate: {
+                    path: 'owner',
+                    model: 'Customer',
+                    select: 'firstName lastName'
+                }
+            }).sort({ 'initDate': 1 });
+
+            
+    	}
     });
 
     router.post('/appointments', (req, res, next) => {

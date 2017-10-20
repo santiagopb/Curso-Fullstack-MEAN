@@ -11,90 +11,71 @@ module.exports = (router) => {
         const StartAtHour = 9;
         const EndAtHout = 18;
         const IntervalInMinutes = 30; 
+        const IdPet = '59ddf017d76a8317b83f7277';
 
-        const StartAtHourInMinutes = ( 60 / IntervalInMinutes ) * StartAtHour;
-        const EndAtHourInMinutes = ( 60 / IntervalInMinutes ) * EndAtHout;
+        const StartAtHourInMinutes = 60 * StartAtHour;
+        const EndAtHourInMinutes =  60  * EndAtHout;
 
         var date = new Date();
         var initDate = moment(new Date(date.getFullYear(), date.getMonth(), 1))
-                        .hour(StartAtHour)
+                        .hour(0)
                         .minute(0);
         var endDate =  moment(new Date(date.getFullYear(), date.getMonth() + 1, 0));
         
-        var initDay = moment(initdate).date();
-        var endDay = moment(endDate).month();
-        /*
+        var initDay = moment(initDate).date();
+        var endDay = moment(endDate).date();
+        
+ 
+        var appointment;
         for (days = initDay; days <= endDay; days++){
-            for( hours = StartAtHourInMinutes; hours < EndAtHourInMinutes; hours+IntervalInMinutes){
-
-            }
-        }
-        */
-
-
-        console.log(initdate, enddate);
-/*
-        const appointment = new Appointment({
-            initDate: req.body.initDate,
-            endDate: req.body.endDate,
-            pet: req.body.pet,
-            vet: req.body.vet,
-            state: req.body.state,
-            note: req.body.note
-        });
-        appointment.save((err) => {
-            if (err) {
-                res.json({ success: false, message: 'Error!!!' });
-            } else {
-                res.json(appointment);
-            }
-        })
-        */
-    });
-
-
-
-    router.post('/appointments', (req, res, next) => {
-        if (!req.body.initDate) {
-            res.json({ success: false, message: 'Debes escribir una fecha de inicio para esta cita' });
-            return;
-        }
-        if (!req.body.endDate) {
-            res.json({ success: false, message: 'Debes escribir una fecha de fin para esta cita' });
-            return;
-        }
-        if (!req.body.pet) {
-            res.json({ success: false, message: 'Debes especificar una mascota' });
-            return;
-        }
-        const appointment = new Appointment({
-            initDate: req.body.initDate,
-            endDate: req.body.endDate,
-            pet: req.body.pet,
-            vet: req.body.vet,
-            state: req.body.state,
-            note: req.body.note
-        });
-        appointment.save((err) => {
-            if (err) {
-                res.json({ success: false, message: 'Error!!!' });
-            } else {
-                Pet.populate(appointment, { path: "pet" }, (err, pet) => {
-                    if (err) {
-                        res.json({ success: false, message: 'Error!!!' });
-                        return;
-                    }
-                    Vet.populate(appointment, { path: "vet" }, (err, vet) => {
+        	
+        	// Start de date with default hour
+        	initDate = moment(initDate).hour(StartAtHour);
+            for( hours = StartAtHourInMinutes; hours < EndAtHourInMinutes; hours+=IntervalInMinutes){
+            	
+            	// Define endDate
+            	endDate = moment(initDate).add(IntervalInMinutes-1, 'minutes');
+            	
+            	// Validate if not weekend
+            	//if (moment(initDate).isoWeekday() < 6){
+            		
+            		// Create New Appointment with values
+                    appointment = new Appointment({
+                        initDate: initDate,
+                        endDate: endDate,
+                        pet: IdPet
+                    });
+                    
+                    // Save Appointment
+                    appointment.save((err) => {
                         if (err) {
                             res.json({ success: false, message: 'Error!!!' });
-                            return;
+                        } else {
+                            console.log(appointment);
                         }
-                        res.json(appointment);
                     });
-                });
+                	
+            		
+            	//}
+
+            	// Increment Interval in Minutes
+            	initDate = moment(initDate).add(IntervalInMinutes, 'minutes');
             }
-        })
+            
+            // Increment 1 day
+            initDate = moment(initDate).add(1, 'days').hour(StartAtHour);
+        }
+        
+        res.json({ok: '****'})
+
     });
+    
+    router.get('/appointment/reset', (req, res, next) => {
+    	Appointment.remove({}, (err, date) => {
+    		//
+    	})
+    });
+
 
     return router;
 }

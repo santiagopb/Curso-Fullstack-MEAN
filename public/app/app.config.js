@@ -17,5 +17,6 @@ angular.module('petStore')
         .when("/veterinarios", {template: "<vet-list vet='vet'></vet-list>"})
         .when("/veterinarios/nuevo", {template: "<vet-new vet='vet'></vet-new>"})
         .when("/veterinarios/:id", {template: "<vet-edit vet='vet'></vet-edit>"})
+        .when("/calendario",{template: "<appointment-calendar></appointment-calendar>"})
         .otherwise({template: "Other"});
     });
