@@ -2,9 +2,11 @@
 
 angular.module('petStore')
     .config(function(
+    	$resourceProvider,
         $locationProvider,
         $routeProvider
     ){
+    	$resourceProvider.defaults.stripTrailingSlashes = false;
         $locationProvider.html5Mode({ enabled: true });
         $routeProvider
         .when("/",{template: "<index></index>"})

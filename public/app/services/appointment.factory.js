@@ -19,6 +19,11 @@ angular.module('appointmentResource', [])
             },*/
             update: { 
                 method:'PUT'
+            },
+            getCalendar: {
+                method: 'GET',
+                params: {initDate: "@initDate", endDate: "@endDate"},
+                isArray: true
             }
         })
     });

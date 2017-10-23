@@ -10,37 +10,27 @@ module.exports = (router) => {
     router.get('/appointments', (req, res, next) => {
         Appointment.find({}, (err, appointments) => {
             if (err) {
-                res.json({ success: false, message: err });
+                res.status(404).json({ success: false, message: err });
             } else {
-                Pet.populate(appointments, { path: "pet" }, (err, pet) => {
-                    if (err) {
-                        res.json({ success: false, message: 'Error!!!' });
-                        return;
-                    }
-                    Customer.populate(pet, { path: "pet.owner" }, (err, customer) => {
-                        if (err) {
-                            res.json({ success: false, message: 'Error!!!' });
-                            return;
-                        }
-                        Vet.populate(appointments, { path: "vet" }, (err, vet) => {
-                            if (err) {
-                                res.json({ success: false, message: 'Error!!!' });
-                                return;
-                            }
-                            res.json(appointments);
-                        });
-                    })
-                });
+            	res.json(appointments);
             }
+        }).populate({
+        	 path: 'pet',
+             model: 'Pet',
+             select: 'name specie',
+             populate: {
+                 path: 'owner',
+                 model: 'Customer',
+                 select: 'firstName lastName'
+             }
         }).sort({ '_id': -1 });
     });
 
     router.get('/appointments/:id', (req, res, next) => {
-    	console.log('-----------');
     	if (req.params.id) {
             Appointment.findById({ _id: req.params.id }, (err, appointment) => {
                 if (err) {
-                    res.json({ success: false, message: err });
+                    res.status(400).json({ success: false, message: err });
                 } else {
                     res.json(appointment);
                 }
@@ -48,11 +38,13 @@ module.exports = (router) => {
     	}
     });
 
-    router.get('/appointments/:date', (req, res, next) => {
-    	console.log('lsdajkflsdkfj');
-    	if (req.params.date){
-            const initdate = moment(req.params.date, 'YYYYMM').calendar();
-            const enddate = moment(initdate).add(1, 'month').calendar();
+    router.get('/appointments/:initDate/:endDate', (req, res, next) => {
+    	console.log('initDate');
+    	if (req.params.initDate && req.params.endDate){
+            const initdate = moment(req.params.initDate, 'YYYYMMDD').calendar();
+            const enddate = moment(req.params.endDate, 'YYYMMDD').calendar();
+            
+            console.log(initDate, endDate);
             
             /*
             Appointment.aggregate([
@@ -125,7 +117,7 @@ module.exports = (router) => {
                 }
             }, (err, appointments) => {
                 if (err) {
-                    res.json({ success: false, message: err });
+                    res.status(404).json({ success: false, message: err });
                 } else {
                 	appointments = appointments.reduce(function(mapa, item){
                 		date = moment(item.initDate).format('YYYY-MM-DD');
@@ -156,14 +148,14 @@ module.exports = (router) => {
 
     router.post('/appointments', (req, res, next) => {
         if (!req.body.initDate) {
-            res.json({ success: false, message: 'Debes escribir una fecha de inicio para esta cita' });
+            res.status(404).json({ success: false, message: 'Debes escribir una fecha de inicio para esta cita' });
             return;
         }
-        if (!req.body.endDate) {
+        if (!req.status(404).body.endDate) {
             res.json({ success: false, message: 'Debes escribir una fecha de fin para esta cita' });
             return;
         }
-        if (!req.body.pet) {
+        if (!req.status(404).body.pet) {
             res.json({ success: false, message: 'Debes especificar una mascota' });
             return;
         }
