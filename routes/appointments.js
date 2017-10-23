@@ -39,12 +39,11 @@ module.exports = (router) => {
     });
 
     router.get('/appointments/:initDate/:endDate', (req, res, next) => {
-    	console.log('initDate');
     	if (req.params.initDate && req.params.endDate){
             const initdate = moment(req.params.initDate, 'YYYYMMDD').calendar();
             const enddate = moment(req.params.endDate, 'YYYMMDD').calendar();
             
-            console.log(initDate, endDate);
+            
             
             /*
             Appointment.aggregate([
@@ -129,7 +128,7 @@ module.exports = (router) => {
                 		return mapa;
                 	},{})
                     
-                	res.json({appointments});
+                	res.json(appointments);
                 }
             }).populate({
                 path: 'pet',

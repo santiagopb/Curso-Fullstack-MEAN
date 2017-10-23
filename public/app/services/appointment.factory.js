@@ -2,7 +2,7 @@
 
 angular.module('appointmentResource', [])
     .factory('appointmentResource', function($resource) {
-        return $resource('/api/appointments/:id', {id: '@id'}, {    	
+        return $resource('/api/appointments/:initDate/:endDate', {}, {    	
             query: {
                 method: "GET",
                 params: {},
@@ -21,9 +21,9 @@ angular.module('appointmentResource', [])
                 method:'PUT'
             },
             getCalendar: {
-                method: 'GET',
+                method: "GET",
                 params: {initDate: "@initDate", endDate: "@endDate"},
-                isArray: true
+                isArray: false
             }
         })
     });
