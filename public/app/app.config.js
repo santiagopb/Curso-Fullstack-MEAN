@@ -20,6 +20,5 @@ angular.module('petStore')
         .when("/veterinarios/nuevo", {template: "<vet-new vet='vet'></vet-new>"})
         .when("/veterinarios/:id", {template: "<vet-edit vet='vet'></vet-edit>"})
         .when("/calendario",{template: "<appointment-calendar></appointment-calendar>"})
-        .when("/calendario/:fecha",{template: "<appointment-calendar></appointment-calendar>"})
         .otherwise({template: "Other"});
     });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="petStore">
+<html ng-app="petStore">
 <head>
 	<base href="/">
 	<meta charset="UTF-8">
@@ -16,11 +16,18 @@
 	<script src="/javascripts/angular-resource.min.js"></script>
 	<script src="/javascripts/angular-route.min.js"></script>
 	<script src="/javascripts/angular-animate.min.js"></script>
-	<script src="/javascripts/react.production.min.js"></script>
-	<script src="/javascripts/react-dom.production.min.js"></script>
+	
+	<script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    
+ <!-- <script src="/javascripts/react.production.min.js"></script>
+	<script src="/javascripts/react-dom.production.min.js"></script> -->
+	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/locale/es.js"></script>
+	
 
 	<script src="/app/app.module.js"></script>
 	<script src="/app/app.config.js"></script>
@@ -37,10 +44,13 @@
 	<script src="/app/menu/menu.component.js"></script>
 	<script src="/app/index/index.component.js"></script>
 	<script src="/app/appointment-calendar/appointment-calendar.component.js"></script>
+	<script src="/app/appointment-by-month/appointment-by-month.component.js"></script>
+	<script src="/app/appointment-by-day/appointment-by-day.component.js"></script>
 	<script src="/app/customer-list/customer-list.component.js"></script>
 	<script src="/app/customer-new/customer-new.component.js"></script>
 	<script src="/app/customer-edit/customer-edit.component.js"></script>
 	<script src="/app/customer-details/customer-details.component.js"></script>
+	<script src="/app/customer-details/customer-details.react.js" type="text/babel" ></script>
 	<script src="/app/customer-by-id/customer-by-id.component.js"></script>
 	<script src="/app/pet-list/pet-list.component.js"></script>
 	<script src="/app/pet-new/pet-new.component.js"></script>

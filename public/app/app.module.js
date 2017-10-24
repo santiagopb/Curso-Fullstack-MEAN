@@ -14,6 +14,8 @@ angular.module('petStore', [
     'menu',
     'index',
     'appointmentCalendar',
+    'appointmentByMonth',
+    'appointmentByDay',
     'customerList',
     'customerNew',
     'customerEdit',
