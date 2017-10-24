@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html ng-app="petStore">
+
 <head>
 	<base href="/">
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PetStore Demo with AngularJs+Express+NodeJs+MongoDb</title>
-	
+
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	
-	<link href="/stylesheets/materialize.min.css" rel="stylesheet" media="screen,projection"/>
+
+	<link href="/stylesheets/materialize.min.css" rel="stylesheet" media="screen,projection" />
 	<link href="/stylesheets/style.css" rel="stylesheet">
 
 	<script src="/javascripts/angular.min.js"></script>
 	<script src="/javascripts/angular-resource.min.js"></script>
 	<script src="/javascripts/angular-route.min.js"></script>
 	<script src="/javascripts/angular-animate.min.js"></script>
-	
+
 	<script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
-    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-    
- <!-- <script src="/javascripts/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+	<!-- <script src="/javascripts/react.production.min.js"></script>
 	<script src="/javascripts/react-dom.production.min.js"></script> -->
-	
+
+	<script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/locale/es.js"></script>
-	
+
 
 	<script src="/app/app.module.js"></script>
 	<script src="/app/app.config.js"></script>
@@ -38,7 +40,7 @@
 	<script src="/app/services/pet.service.js"></script>
 	<script src="/app/services/vet.factory.js"></script>
 	<script src="/app/services/vet.service.js"></script>
-	
+
 	<script src="/app/directives/show-datepicker.directive.js"></script>
 
 	<script src="/app/menu/menu.component.js"></script>
@@ -50,7 +52,7 @@
 	<script src="/app/customer-new/customer-new.component.js"></script>
 	<script src="/app/customer-edit/customer-edit.component.js"></script>
 	<script src="/app/customer-details/customer-details.component.js"></script>
-	<script src="/app/customer-details/customer-details.react.js" type="text/babel" ></script>
+	<script src="/app/customer-details/customer-details.react.js" type="text/babel"></script>
 	<script src="/app/customer-by-id/customer-by-id.component.js"></script>
 	<script src="/app/pet-list/pet-list.component.js"></script>
 	<script src="/app/pet-new/pet-new.component.js"></script>
@@ -64,14 +66,16 @@
 	<script src="/app/vet-edit/vet-edit.component.js"></script>
 	<script src="/app/vet-details/vet-details.component.js"></script>
 
-	</head>
+</head>
+
 <body>
 	<main>
-	<app></app>
-</main>
-	
+		<app></app>
+	</main>
+
 	<script src="/javascripts/jquery-3.2.1.min.js"></script>
 	<script src="/javascripts/materialize.min.js"></script>
 	<script src="/javascripts/script.js"></script>
 </body>
+
 </html>

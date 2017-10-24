@@ -4,6 +4,7 @@ angular.module('petStore', [
     'ngAnimate',
     'ngResource',
     'ngRoute',
+    'ui.bootstrap',
     //Services
     'customer',
     'pet',

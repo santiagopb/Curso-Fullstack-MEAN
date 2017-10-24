@@ -5,6 +5,7 @@ angular.module('appointmentByMonth', ['appointmentService'])
         templateUrl: '/app/appointment-by-month/appointment-by-month.html',
 
         controller: function (appointmentService, $scope, $location) {
+            $scope.daySelected;
             $scope.date = {};
             $scope.calendar = []
             $scope.calendarDB;
@@ -14,7 +15,12 @@ angular.module('appointmentByMonth', ['appointmentService'])
             $scope.back = () => { window.history.back(); }
 
             this.$onInit = () => {
-            	$scope.selectMonth(new Date());
+                $scope.selectMonth(new Date());
+                $('.modal').modal()
+            }
+
+            $scope.selectDay = function(date, value) {
+                $scope.daySelected = {date: date, value: value};
             }
 
             $scope.selectMonth = (date) => {
@@ -63,11 +69,6 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 }
 
                 return calendar;
-            }
-
-
-            $scope.selectDay = function(date, value) {
-            	$scope.$emit('selectDay', {date:date, value:value});
             }
             
         }

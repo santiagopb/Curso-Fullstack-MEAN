@@ -27,7 +27,7 @@
 <div class="flex-container margin-bottom" ng-repeat="date in calendar">
     <div class="card flex-1" ng-repeat="cell in date ">
         <div ng-if="cell.isValid" class="card-action">
-            <a ng-click="selectDay(cell.date, cell.value)" href="">{{ cell.day }}</a>
+            <a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger" href="#modal1">{{ cell.day }}</a>
             <span class="new badge" data-badge-caption="{{ cell.cant  }}"></span>
         </div>
         <div ng-if="!cell.isValid" class="card-content">
@@ -36,12 +36,31 @@
     </div>
 </div>
 
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <appointment-by-day ng-if="daySelected" day="daySelected.date" value="daySelected.value"></appointment-by-day>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+
 <style>
     .card {
         margin: 1px;
         text-align: center;
     }
+
     .margin-bottom:last-of-type {
         margin-bottom: 80px;
+    }
+
+    .modal.bottom-sheet {
+        max-height: 65%;
+        height: 65%;
     }
 </style>
