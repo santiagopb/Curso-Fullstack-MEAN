@@ -1,6 +1,6 @@
 const Vet = require('../models/vet');
 
-module.exports = (router) => {
+module.exports = (router, io) => {
 
   router.get('/vets', function (req, res, next) {
     Vet.find({}, (err, vets) => {

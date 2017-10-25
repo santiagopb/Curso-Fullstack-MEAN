@@ -1,6 +1,7 @@
 const Customer = require('../models/customer');
 
-module.exports = (router) => {
+module.exports = (router, io) => {
+
 
   router.get('/customers', (req, res, next) => {
     Customer.find({}, (err, customers) => {
@@ -13,7 +14,7 @@ module.exports = (router) => {
   });
 
   router.get('/customers/:id', (req, res, next) => {
-    Customer.findById({_id: req.params.id}, (err, customer) => {
+    Customer.findById({ _id: req.params.id }, (err, customer) => {
       if (err) {
         res.json({ success: false, message: err });
       } else {
@@ -55,6 +56,7 @@ module.exports = (router) => {
       if (err) {
         res.json({ success: false, message: err });
       } else {
+        io.sockets.emit('customerPut', {message: 'SIIIII'});
         res.json({ success: true, message: 'Client Saved!' });
       }
     })

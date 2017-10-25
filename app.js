@@ -1,20 +1,25 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const socket_io = require('socket.io')
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+
+const app = express();
+const io = socket_io();
+
+app.io = io;
 
 const router = express.Router();
 
 // Declare Routes
-const customers = require('./routes/customers')(router);
-const pets = require('./routes/pets')(router);
-const vets = require('./routes/vets')(router);
-const appointments = require('./routes/appointments')(router);
+require('./connection/socket')(io);
+const customers = require('./routes/customers')(router, io);
+const pets = require('./routes/pets')(router, io);
+const vets = require('./routes/vets')(router, io);
+const appointments = require('./routes/appointments')(router, io);
 const seeds = require('./routes/seeds')(router);
-
-var app = express();
 
 
 // uncomment after placing your favicon in /public
@@ -25,10 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Database Conection
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/petStore', { useMongoClient: true });
 
-//// Use Routes
+// Use Routes
 app.use('/api', customers);
 app.use('/api', pets);
 app.use('/api', vets);

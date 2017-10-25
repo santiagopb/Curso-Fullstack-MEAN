@@ -2,7 +2,7 @@ const Pet = require('../models/pet');
 const Customer = require('../models/customer');
 const multer = require('multer');
 
-module.exports = (router) => {
+module.exports = (router, io) => {
 
 	
     router.get('/pets', function(req, res, next){

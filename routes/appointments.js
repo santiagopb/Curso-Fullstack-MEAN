@@ -5,7 +5,7 @@ const Vet = require('../models/vet');
 const moment = require('moment');
 moment.updateLocale('es', null);
 
-module.exports = (router) => {
+module.exports = (router, io) => {
 
     router.get('/appointments', (req, res, next) => {
         Appointment.find({}, (err, appointments) => {
