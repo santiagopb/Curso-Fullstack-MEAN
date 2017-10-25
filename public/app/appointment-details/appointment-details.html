@@ -1,0 +1,13 @@
+<div class="card">
+	<div class="card-content">
+		<h4>Hora: {{$ctrl.hour.hour}}</h4>
+
+		<div class="input-field">
+			<input id="hour" type="text" ng-model="$ctrl.hour.value.initDate"
+				class="validate"> <label class="active" for="hour">Hora</label>
+		</div>
+		<customer-by-id id="$ctrl.hour.value.pet.owner._id"></customer-by-id>
+
+		{{$ctrl.hour.value}}
+	</div>
+</div>

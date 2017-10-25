@@ -1,51 +1,60 @@
 <div class="flex-container">
-    <div class="card flex-1">
-        <div class="card-action">
-            <a ng-click="selectMonth(date.previous)" href=""><i class="material-icons">skip_previous</i></a>
-        </div>
-    </div>
-    <div class="card flex-5">
-        <div class="card-content">
-            {{date.month | uppercase }} {{ date.year }}
-        </div>
-    </div>
-    <div class="card flex-1">
-        <div class="card-action">
-            <a ng-click="selectMonth(date.next)" href=""><i class="material-icons">skip_next</i></a>
-        </div>
-    </div>
+	<div class="card flex-1">
+		<div class="card-action">
+			<a ng-click="selectMonth(date.previous)" href=""><i
+				class="material-icons">skip_previous</i></a>
+		</div>
+	</div>
+	<div class="card flex-5">
+		<div class="card-content">{{date.month | uppercase }} {{
+			date.year }}</div>
+	</div>
+	<div class="card flex-1">
+		<div class="card-action">
+			<a ng-click="selectMonth(date.next)" href=""><i
+				class="material-icons">skip_next</i></a>
+		</div>
+	</div>
 </div>
 
 <div class="flex-container">
-    <div class="card flex-1" ng-repeat="day in weekdayNames">
-        <div class="card-content">
-            {{day | uppercase}}
-        </div>
-    </div>
+	<div class="card flex-1" ng-repeat="day in weekdayNames">
+		<div class="card-content">{{day | uppercase}}</div>
+	</div>
 </div>
 
 <div class="flex-container margin-bottom" ng-repeat="date in calendar">
-    <div class="card flex-1" ng-repeat="cell in date ">
-        <div ng-if="cell.isValid" class="card-action">
-            <a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger" href="#modal1">{{ cell.day }}</a>
-            <span class="new badge" data-badge-caption="{{ cell.cant  }}"></span>
-        </div>
-        <div ng-if="!cell.isValid" class="card-content">
-            <span class="grey-text">{{ cell.day }}</span>
-        </div>
-    </div>
+	<div class="card flex-1" ng-repeat="cell in date ">
+		<div ng-if="cell.isValid" class="card-action">
+			<a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger"
+				href="#modal1">{{ cell.day }}</a> <span class="new badge"
+				data-badge-caption="{{ cell.cant  }}"></span>
+		</div>
+		<div ng-if="!cell.isValid" class="card-content">
+			<span class="grey-text">{{ cell.day }}</span>
+		</div>
+	</div>
 </div>
-
 
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
-    <div class="modal-content">
-        <appointment-by-day ng-if="daySelected" day="daySelected.date" value="daySelected.value"></appointment-by-day>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
+	<div class="modal-content">
+		<div class="row">
+			<div class="col s6">
+				<appointment-by-day ng-if="daySelected" day="daySelected.date"
+					value="daySelected.value" hour="hour.selected">
+				</appointment-by-day>
+			</div>
+			<div class="col s6">
+				<appointment-details hour="hour.selected"></appointment-details>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#!"
+			class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+	</div>
 </div>
 
 

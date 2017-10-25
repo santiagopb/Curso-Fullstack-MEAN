@@ -30,7 +30,6 @@ angular.module('petByOwner', [])
                             if (response.data.length>0){
                                 $scope.pets = response.data;
                                 $scope.item.owner = customerId.currentValue;
-                                console.log("OnChange: item", $scope.item);
                             }
                         });
                 }

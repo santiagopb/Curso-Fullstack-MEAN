@@ -6,6 +6,7 @@ angular.module('appointmentByMonth', ['appointmentService'])
 
         controller: function (appointmentService, $scope, $location) {
             $scope.daySelected;
+            $scope.hour = {};
             $scope.date = {};
             $scope.calendar = []
             $scope.calendarDB;
@@ -30,7 +31,6 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 appointmentService.getCalendar($scope.date.current, $scope.date.next)
                     .$promise.then(function (db) {
                         $scope.calendar = getCalendar(db, date);
-                        console.log (db)
                     });
             }
 

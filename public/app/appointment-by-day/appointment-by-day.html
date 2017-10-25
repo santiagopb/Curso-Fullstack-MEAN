@@ -1,5 +1,7 @@
-<h4>Dia {{$ctrl.day}}</h4>
+<span class="card-title">Dia {{$ctrl.day}}</span>
 <div class="collection">
-	<a href="#!" class="collection-item" ng-repeat="hour in day"> xxxx{{hour}}</a>
+	<a ng-click="selectHour(cell.hour, cell.value)" href="#!"
+		class="collection-item" ng-repeat="cell in day"> {{cell.hour}}
+		{{cell.customer}} {{cell.pet}} </a>
 </div>
-;kljvldkjv
+
