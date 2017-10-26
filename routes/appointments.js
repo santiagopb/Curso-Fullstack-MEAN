@@ -6,7 +6,7 @@ const moment = require('moment');
 moment.updateLocale('es', null);
 
 module.exports = (router, io) => {
-/*
+
     router.get('/appointments', (req, res, next) => {
         Appointment.find({}, (err, appointments) => {
             if (err) {
@@ -25,7 +25,7 @@ module.exports = (router, io) => {
              }
         }).sort({ '_id': -1 });
     });
-*/
+
     router.get('/appointments/:id', (req, res, next) => {
     	if (req.params.id) {
             Appointment.findById({ _id: req.params.id }, (err, appointment) => {
@@ -42,8 +42,6 @@ module.exports = (router, io) => {
     	if (req.params.initDate && req.params.endDate){
             const initdate = moment(req.params.initDate, 'YYYYMMDD').toDate();
             const enddate = moment(req.params.endDate, 'YYYMMDD').toDate();
-            
-            console.log(initdate, enddate)
             
             /*
             Appointment.aggregate([

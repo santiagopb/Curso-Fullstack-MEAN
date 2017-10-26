@@ -12,23 +12,33 @@ angular.module('appointmentByDay', [])
         	$scope.day = [];
 
         	this.$onInit = () => {
-        		$scope.day = getDay(this.day, this.value);
+				$scope.day = getDay(this.day, this.value);
+				this.day = moment(this.day).format('dddd, Do MMMM YYYY');
+				this.hour={};
         	}
         	
         	this.$onChanges = function ({day}) {
         		if (angular.isDefined(day) && !day.isFirstChange()) {
-        			$scope.day = getDay(this.day, this.value);
+					$scope.day = getDay(this.day, this.value);
+					this.day = moment(this.day).format('dddd, Do MMMM YYYY');
+					this.hour={};
                 }
         	}.bind(this);
         	
         	$scope.selectHour = function(hour, value) {
-        		this.hour = {hour:hour, value:value};
+				if (!value) { // 
+					var initDate = moment(this.day+' '+hour, 'dddd, Do MMMM YYYY HH:mm').toDate();
+					var endDate = moment(initDate).add(29, 'm');
+					value = {initDate, endDate}
+				}	
+				this.hour = {hour:hour, value:value};
         	}.bind(this);
         	
         	function getDay(thisDay, db=[]) {
             	const startHour = 9;
             	const endHour = 18;
-            	const intervalInHour = 0.5;
+				const intervalInHour = 0.5;
+				
             	
                 var day = [];
                 var startDate = moment(thisDay).set({hour: startHour});
@@ -44,7 +54,7 @@ angular.module('appointmentByDay', [])
                 }
 
                 return day;
-            }
+            };
         	
         	
         }

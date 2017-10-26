@@ -1,23 +1,30 @@
 'use strict';
 
-angular.module('appointment', ['customerService', 'rx'])
+angular.module('appointment', ['customerService', 'petService', 'rx'])
     .component('appointment', {
         templateUrl: '/app/appointment/appointment.html',
         bindings: {
-        	value: '='
+        	value: '<'
         },
-        controller: function (customerService, $scope) {  
+        controller: function (customerService, petService, $scope) {  
+
+			$scope.customer = {};
+			$scope.pet = {}
+
+			this.$onInit = () => {
+				getData();
+			}
+
+			function getData () {
+				var customerSubscription = customerService.query().subscribe((data)=> {
+					$scope.customer.data = data;
+				});
+
+				var petSubscription = petService.query().subscribe((data)=> {
+					$scope.pet.data = data;
+				})
+			}
         	
-        	var customer = customerService.customer.subscribe((data)=> {
-        		console.log(data)
-        	});
-        	
-        	
-        	//console.log(customer)
-        	/*
-        	customer.subscribe().((data)=>{
-        		console.log(data)
-        	})
-        	*/
+
         }
     });

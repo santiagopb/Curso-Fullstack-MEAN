@@ -7,7 +7,7 @@ angular.module('petStore', [
     'ui.bootstrap',
     //Services
     'customerFactory2',
-    'pet',
+    'petFactory2',
     'vet',
     //Directives
     'showDatepicker',
@@ -15,6 +15,8 @@ angular.module('petStore', [
     'menu',
     'index',
     'appointment',
+    'appointmentCustomer',
+    'appointmentPet',
     'appointmentByMonth',
     'appointmentByDay',
     'appointmentByHour',
@@ -34,7 +36,7 @@ angular.module('petStore', [
     'vetNew',
     'vetEdit',
     'vetDetails'
-]).controller('appCtrl', function (customerFactory2, petService, $scope) {
+]).controller('appCtrl', function (customerFactory2, petFactory2, $scope) {
 
     var socket = io.connect('http://localhost:3000', { 'forceNew': true });
     
@@ -104,15 +106,15 @@ angular.module('petStore', [
     /*****************************************************************
      * Pet
      *****************************************************************/
-    petService.query(function (data) {
+    petFactory2.query(function (data) {
         $scope.pet.data = data;
     });
     $scope.pet.get = function (id) {
-        return petService.get({ id: id });
+        return petFactory2.get({ id: id });
     }
     $scope.pet.save = function (pet) {
         if (pet._id) { // PUT
-            petService.update({ id: pet._id }, {
+            petFactory2.update({ id: pet._id }, {
                 photoUrl: pet.photoUrl,
                 name: pet.name,
                 birthday: pet.birthday,
@@ -134,7 +136,7 @@ angular.module('petStore', [
                 Materialize.toast('Los datos de la Mascota se han actualizado con exito!!!', 4000, 'rounded');
             });
         } else { // SAVE
-            petService.save({}, {
+            petFactory2.save({}, {
                 photoUrl: '',
                 name: pet.name,
                 birthday: pet.birthday,
@@ -153,14 +155,14 @@ angular.module('petStore', [
 
     }
     $scope.pet.delete = function (pet) {
-        petService.delete({ id: pet._id }, () => {
+        petFactory2.delete({ id: pet._id }, () => {
             const index = $scope.pet.data.indexOf(pet);
             $scope.pet.data.splice(index, 1);
         });
     }
     $scope.pet.upload = function (_id, photoUrl) {
         console.log(_id, photoUrl);
-        /*petService.upload({ id: pet._id }, {
+        /*petFactory2.upload({ id: pet._id }, {
             photoUrl: pet.photoUrl
         }, (data)=>{
             console.log('ok');

@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('petByOwner', [])
-    .component('petByOwner', {
-        templateUrl: '/app/pet-by-owner/pet-by-owner.html',
+angular.module('appointmentPet', [])
+    .component('appointmentPet', {
+        templateUrl: '/app/appointment-pet/appointment-pet.html',
         bindings: {
             customerId: '<',
             pet: '='
         },
         controller: function ($scope, $http) {
-            $scope.newPet = false;
             $scope.pets;
             $scope.item = {};
             this.$onInit = function () {
@@ -24,6 +23,8 @@ angular.module('petByOwner', [])
             };
 
             this.$onChanges = function ({ customerId }) {
+                $scope.pets = [];
+                $scope.item = {};
                 if (angular.isDefined(customerId) && !customerId.isFirstChange()) {
                     $http.get('/api/petsbyowner/' + customerId.currentValue).
                         then(function (response) {
@@ -35,9 +36,6 @@ angular.module('petByOwner', [])
                 }
             }
 
-            $scope.addPet = function () {
-                $scope.newPet=true;
-            }
 
         }
     });

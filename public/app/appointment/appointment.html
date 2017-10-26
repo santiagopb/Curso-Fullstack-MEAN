@@ -1,2 +1,3 @@
-<customer-by-id id="$ctrl.value.pet.owner._id" cuetomer="customer"></customer-by-id>
-{{$ctrl.value}}
+<appointment-customer id="$ctrl.value.pet.owner._id" customer="customer"></appointment-customer>
+<appointment-pet ng-if="$ctrl.value.pet.owner._id" customer-id="$ctrl.value.pet.owner._id" pet="pet"></appointment-pet>
+

@@ -3,27 +3,17 @@
 angular.module('customerService', ['customerResource', 'rx'])
     .service('customerService', function(customerResource) { 	
 
-        var customerSource =  new Rx.BehaviorSubject(Rx.Observable.fromPromise(customerResource.query()));
+        var customerSource =  new Rx.BehaviorSubject(customerResource.query());
         var customer = customerSource.asObservable();
         this.customer = customer;
-        //Rx.Observable.fromPromise(customerResource.query());
-        //.do(function(pilots){ cache.pilots = pilots; }); 
-        //Rx.BehaviorSubject(); 
-        //	Rx.Observable.fromPromise(customerResource.query());
-
 
         /*****************************************************************
          * Customer
          *****************************************************************/
-        
-        //customer.next(Rx.Observable.fromPromise(customerResource.query()));
-        //customer.next();
-        customerResource.query(function (data) {
-        	//this.customerSource.next(data);
-        });
+
         
         this.query = function() {
-        	return customer;
+            return customer;
         }
         
         this.get = function (id) {

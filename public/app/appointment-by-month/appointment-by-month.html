@@ -6,8 +6,7 @@
 		</div>
 	</div>
 	<div class="card flex-5">
-		<div class="card-content">{{date.month | uppercase }} {{
-			date.year }}</div>
+		<div class="card-content">{{date.month | uppercase }} {{ date.year }}</div>
 	</div>
 	<div class="card flex-1">
 		<div class="card-action">
@@ -26,9 +25,8 @@
 <div class="flex-container margin-bottom" ng-repeat="date in calendar">
 	<div class="card flex-1" ng-repeat="cell in date ">
 		<div ng-if="cell.isValid" class="card-action">
-			<a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger"
-				href="#modal1">{{ cell.day }}</a> <span class="new badge"
-				data-badge-caption="{{ cell.cant  }}"></span>
+			<a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger" href="#modal1">{{ cell.day }}</a> <span class="new badge"
+			 data-badge-caption="{{ cell.cant  }}"></span>
 		</div>
 		<div ng-if="!cell.isValid" class="card-content">
 			<span class="grey-text">{{ cell.day }}</span>
@@ -40,36 +38,36 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
 	<div class="modal-content">
-		<div class="row">
-			<div class="col s6">
-				<appointment-by-day ng-if="daySelected" day="daySelected.date"
-					value="daySelected.value" hour="hour.selected">
-				</appointment-by-day>
-			</div>
-			<div class="col s6">
-				<appointment-by-hour hour="hour.selected"></appointment-by-hour>
+		<a ng-click="selectDay(null, null)" class="btn-floating right modal-action modal-close waves-effect waves-light"><i class="material-icons">close</i></a>
+		<div class="container">
+			<div class="row">
+				<div class="col s6">
+					<appointment-by-day ng-if="daySelected" day="daySelected.date" value="daySelected.value" hour="hour.selected">
+					</appointment-by-day>
+				</div>
+				<div class="col s6">
+					<appointment-by-hour ng-if="hour.selected.hour" hour="hour.selected"></appointment-by-hour>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#!"
-			class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 	</div>
 </div>
 
 
 <style>
-    .card {
-        margin: 1px;
-        text-align: center;
-    }
+	.card {
+		margin: 1px;
+		text-align: center;
+	}
 
-    .margin-bottom:last-of-type {
-        margin-bottom: 80px;
-    }
+	.margin-bottom:last-of-type {
+		margin-bottom: 80px;
+	}
 
-    .modal.bottom-sheet {
-        max-height: 65%;
-        height: 65%;
-    }
+	.modal.bottom-sheet {
+		max-height: 100%;
+		height: 100%;
+	}
 </style>

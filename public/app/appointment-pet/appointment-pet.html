@@ -1,0 +1,20 @@
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">MASCOTA</span>
+		<p ng-if="!pets" class="grey-text">Aun no tiene mascotas asociadas!!!</p>
+	</div>
+</div>
+
+<div class="row" ng-repeat="pet in pets">
+	<div class="col s12 m12">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">{{pet.name}}</span>
+				<p class="grey-text">{{pet.specie}} - {{pet.race}}</p>
+			</div>
+			<div class="card-action">
+				<a ng-href="mascotas/{{pet._id}}">{{pet.specie}} - {{pet.race}}</a>
+			</div>
+		</div>
+	</div>
+</div>
