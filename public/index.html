@@ -18,9 +18,6 @@
 	<script src="/javascripts/angular-route.min.js"></script>
 	<script src="/javascripts/angular-animate.min.js"></script>
 
-	<script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
-	<script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
-	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
 	<!-- <script src="/javascripts/react.production.min.js"></script>
 	<script src="/javascripts/react-dom.production.min.js"></script> -->
@@ -32,12 +29,20 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.2/Rx.js"></script> -->
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rx-angular/1.1.3/rx.angular.js"></script> -->
+
+	<script data-require="rxjs@4.1.0" data-semver="4.1.0" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
+    <script data-require="rx.angular.js@*" data-semver="1.1.3" src="https://cdn.rawgit.com/Reactive-Extensions/rx.angular.js/v1.1.3/dist/rx.angular.js"></script>
+
 
 	<script src="/app/app.module.js"></script>
 	<script src="/app/app.config.js"></script>
 
 	<script src="/app/services/appointment.factory.js"></script>
 	<script src="/app/services/appointment.service.js"></script>
+	<script src="/app/services/customer.factory.js"></script>
+					<script src="/app/services/customer.factory2.js"></script>
 	<script src="/app/services/customer.service.js"></script>
 	<script src="/app/services/pet.service.js"></script>
 	<script src="/app/services/vet.factory.js"></script>
@@ -47,10 +52,10 @@
 
 	<script src="/app/menu/menu.component.js"></script>
 	<script src="/app/index/index.component.js"></script>
-	<script src="/app/appointment-calendar/appointment-calendar.component.js"></script>
+	<script src="/app/appointment/appointment.component.js"></script>
 	<script src="/app/appointment-by-month/appointment-by-month.component.js"></script>
 	<script src="/app/appointment-by-day/appointment-by-day.component.js"></script>
-	<script src="/app/appointment-details/appointment-details.component.js"></script>
+	<script src="/app/appointment-by-hour/appointment-by-hour.component.js"></script>
 	<script src="/app/customer-list/customer-list.component.js"></script>
 	<script src="/app/customer-new/customer-new.component.js"></script>
 	<script src="/app/customer-edit/customer-edit.component.js"></script>

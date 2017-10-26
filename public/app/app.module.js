@@ -6,7 +6,7 @@ angular.module('petStore', [
     'ngRoute',
     'ui.bootstrap',
     //Services
-    'customer',
+    'customerFactory2',
     'pet',
     'vet',
     //Directives
@@ -14,10 +14,10 @@ angular.module('petStore', [
     //Modules
     'menu',
     'index',
-    'appointmentCalendar',
+    'appointment',
     'appointmentByMonth',
     'appointmentByDay',
-    'appointmentDetails',
+    'appointmentByHour',
     'customerList',
     'customerNew',
     'customerEdit',
@@ -34,7 +34,7 @@ angular.module('petStore', [
     'vetNew',
     'vetEdit',
     'vetDetails'
-]).controller('appCtrl', function (customerService, petService, $scope) {
+]).controller('appCtrl', function (customerFactory2, petService, $scope) {
 
     var socket = io.connect('http://localhost:3000', { 'forceNew': true });
     
@@ -54,15 +54,15 @@ angular.module('petStore', [
     /*****************************************************************
      * Customer
      *****************************************************************/
-    customerService.query(function (data) {
+    customerFactory2.query(function (data) {
         $scope.customer.data = data;
     });
     $scope.customer.get = function (id) {
-        return customerService.get({ id: id });
+        return customerFactory2.get({ id: id });
     }
     $scope.customer.save = function (customer) {
         if (customer._id) { // PUT
-            customerService.update({ id: customer._id }, {
+        	customerFactory2.update({ id: customer._id }, {
                 dni: customer.dni,
                 firstName: customer.firstName,
                 lastName: customer.lastName,
@@ -80,7 +80,7 @@ angular.module('petStore', [
                 Materialize.toast('Los datos del Cliente se han guardado con exito!!!', 4000, 'rounded');
             });
         } else { // SAVE
-            customerService.save({}, {
+        	customerFactory2.save({}, {
                 dni: customer.dni,
                 firstName: customer.firstName,
                 lastName: customer.lastName,
@@ -95,7 +95,7 @@ angular.module('petStore', [
 
     }
     $scope.customer.delete = function (customer) {
-        customerService.delete({ id: customer._id }, () => {
+    	customerFactory2.delete({ id: customer._id }, () => {
             const index = $scope.customer.data.indexOf(customer);
             $scope.customer.data.splice(index, 1);
         });
