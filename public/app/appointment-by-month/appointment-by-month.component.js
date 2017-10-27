@@ -25,13 +25,15 @@ angular.module('appointmentByMonth', ['appointmentService'])
             }
 
             $scope.selectMonth = (date) => {
-                date = moment(date, 'YYYYMM');
-                
-                $scope.date = getDate(date);
-                appointmentService.getCalendar($scope.date.current, $scope.date.next)
-                    .$promise.then(function (db) {
-                        $scope.calendar = getCalendar(db, date);
-                    });
+                date = moment(date, 'YYYYMM');               
+                $scope.date = getDate(date);                
+                var appointmentSubscription = appointmentService.getCalendar($scope.date.current, $scope.date.next).subscribe((subscription)=> {
+                	subscription.$promise.then(function (db) {
+                		$scope.calendar = getCalendar(db, date);
+                    	console.log(db)
+                	})
+                	
+				});
             }
 
             
@@ -48,7 +50,10 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 var calendar = [];
                 const startWeek = moment(date).startOf('month').week();
                 var endWeek = moment(date).endOf('month').week();
-                endWeek = endWeek == 1? 53 : endWeek; // Gregorian calendar (Some times 31 Dic = first week on next year)
+                endWeek = endWeek == 1? 53 : endWeek; // Gregorian calendar
+														// (Some times 31 Dic =
+														// first week on next
+														// year)
 
                 for (var week = startWeek; week <= endWeek; week++) {
                     calendar.push(Array(7).fill(0).map((n, i) => {
@@ -71,5 +76,10 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 return calendar;
             }
             
+            
+            $scope.$on("saveAppointment", function(evt,data){
+            	alert('okokok')
+            	  //$scope.daySelected = 
+            });
         }
     });

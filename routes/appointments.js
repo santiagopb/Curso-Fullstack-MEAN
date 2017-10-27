@@ -184,6 +184,18 @@ module.exports = (router, io) => {
             }
         })
     });
+    
+    router.put('/appointments/:id', (req, res, next) => {
+    	Appointment.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, data) => {
+          if (err) {
+        	  console.log(err);
+            res.json({ success: false, message: err });
+          } else {
+        	  console.log('Ok')
+            res.json({ success: true, message: 'Saved!' });
+          }
+        })
+      });
 
     return router;
 }

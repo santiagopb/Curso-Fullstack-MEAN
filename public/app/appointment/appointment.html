@@ -1,3 +1,11 @@
+<a ng-if="pet.selected._id" ng-click="saveAppointment()"
+	class="btn-floating right waves-effect waves-light"><i
+	class="material-icons">save</i></a>
 <appointment-customer id="$ctrl.value.pet.owner._id" customer="customer"></appointment-customer>
-<appointment-pet ng-if="$ctrl.value.pet.owner._id" customer-id="$ctrl.value.pet.owner._id" pet="pet"></appointment-pet>
-
+<appointment-pet ng-if="$ctrl.value.pet.owner._id"
+	customer-id="$ctrl.value.pet.owner._id" pet="pet"></appointment-pet>
+<div class="input-field">
+	<textarea id="note" ng-model="$ctrl.value.note"
+		class="materialize-textarea"></textarea>
+	<label class="active" for="note">Nota:</label>
+</div>

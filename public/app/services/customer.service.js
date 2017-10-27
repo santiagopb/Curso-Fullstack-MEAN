@@ -10,7 +10,6 @@ angular.module('customerService', ['customerResource', 'rx'])
         /*****************************************************************
          * Customer
          *****************************************************************/
-
         
         this.query = function() {
             return customer;
@@ -20,12 +19,7 @@ angular.module('customerService', ['customerResource', 'rx'])
         	return customer.find(function (obj) { return obj._id === id; });
         }
         
-        
-        /*
-        $scope.customer.get = function (id) {
-            return customerFactory.get({ id: id });
-        }
-        $scope.customer.save = function (customer) {
+        this.save = function (customer) {
             if (customer._id) { // PUT
             	customerFactory.update({ id: customer._id }, {
                     dni: customer.dni,
@@ -59,11 +53,12 @@ angular.module('customerService', ['customerResource', 'rx'])
             }
 
         }
-        $scope.customer.delete = function (customer) {
+        
+        this.delete = function (customer) {
         	customerFactory.delete({ id: customer._id }, () => {
                 const index = $scope.customer.data.indexOf(customer);
                 $scope.customer.data.splice(index, 1);
             });
         }
-*/
+
     });

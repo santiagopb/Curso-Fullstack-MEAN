@@ -21,24 +21,11 @@ angular.module('showDatepicker', [])
 					today: 'Hoy',
 					clear: 'Limpiar',
 					close: 'Cerrar',
-					closeOnSelect: true // Close upon selecting a date,
+					closeOnSelect: true 
 				});
 
 
-				if (ngModel) {/*
-					ngModel.$parsers.push(function (value) {
-						//value is a
-						// 'value' should be your model property
-						ngModel.$setValidity('value', true);
-						// sets viewValue
-
-						ngModel.$setViewValue(value);
-						console.log(value);
-
-						// renders the input with the new viewValue
-						ngModel.$render()
-						return "b" // you are changing it to b. so now in your controller the value is b and you can trigger your save function
-					});*/
+				if (ngModel) {
 
 					ngModel.$formatters.push(function (value) {
 						return moment(value).format('DD-MMMM-YYYY', 'es');
