@@ -14,9 +14,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-action flex-container" ng-repeat="customer in $ctrl.customer.data | filter:search">
+            <div class="card-action flex-container" ng-repeat="customer in customers | filter:search">
                 <span class="flex-1"><a ng-href="clientes/{{customer._id}}" style="line-height: 3 !important;">{{ customer.firstName }} {{ customer.lastName }}</a></span>
-                <a class="btn-floating waves-effect waves-light red"><i ng-click="$ctrl.customer.delete(customer);" class="material-icons">delete</i></a>
+                <a class="btn-floating waves-effect waves-light red"><i ng-click="delete(customer);" class="material-icons">delete</i></a>
             </div>
         </div>
     </div>

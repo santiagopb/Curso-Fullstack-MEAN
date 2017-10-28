@@ -5,8 +5,7 @@ angular.module('menu', [])
         templateUrl:'/app/menu/menu.html',
         bindings: {
             title: '=',
-            item: '=',
-            option: '='
+            item: '='
         },
         controller: function($scope) {
             $scope.back = () => {

@@ -148,12 +148,12 @@ module.exports = (router, io) => {
             res.status(404).json({ success: false, message: 'Debes escribir una fecha de inicio para esta cita' });
             return;
         }
-        if (!req.status(404).body.endDate) {
-            res.json({ success: false, message: 'Debes escribir una fecha de fin para esta cita' });
+        if (!req.body.endDate) {
+            res.status(404).json({ success: false, message: 'Debes escribir una fecha de fin para esta cita' });
             return;
         }
-        if (!req.status(404).body.pet) {
-            res.json({ success: false, message: 'Debes especificar una mascota' });
+        if (!req.body.pet) {
+            res.status(404).json({ success: false, message: 'Debes especificar una mascota' });
             return;
         }
         const appointment = new Appointment({

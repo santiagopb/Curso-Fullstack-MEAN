@@ -1,9 +1,9 @@
-<menu title="item.firstName+ ' '+item.lastName" item="item" option="$ctrl.customer"></menu>
+<menu title="item.firstName+ ' '+item.lastName" item="item"></menu>
 <div class="row">
     <div class="col s12 m6">
-        <customer-details customer="$ctrl.customer" item="item"></customer-details>
+        <customer-details item="item"></customer-details>
     </div>
     <div class="col s12 m6">
-        <pet-by-owner customer-id="customerId" pet="$ctrl.pet"></pet-by-owner>
+        <pet-by-owner customer-id="item._id" pet="$ctrl.pet"></pet-by-owner>
     </div>
 </div>

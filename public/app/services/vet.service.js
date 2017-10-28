@@ -1,52 +1,73 @@
 'use strict';
 
-angular.module('vet', ['vetFactory'])
-    .service('vetService', function(vetResource, $resource) {
+angular.module('vetService', ['rx'])
+    .service('vetService', function($resource, $q) {
+        var Resource = $resource('/api/vets/:id', { id: '@id' }, {
+            query: {
+                method: "GET",
+                isArray: true,
+                cache: true
+            },
+            update: {
+                method: 'PUT'
+            }
+        })
     
-        var vet = {};
+        var vetSource = new Rx.BehaviorSubject(Resource.query());
+        var vetList = vetSource.asObservable();
 
-        vetResource.query(function (data) {
-            console.log(data);
-            vet.data = data;    
-        });
-
-        this.getVet = function () {
-            return vet.data;
-        };
-
-
-
-    /*****************************************************************
-     * Vet
-     *****************************************************************/
-    /*this.vetService.query(function (data) {
-        $scope.vet.data = data;
-    });
-    $scope.vet.save = function (vet) {
-        if (vet._id) { // PUT
-            vetService.update({ id: vet._id }, { name: vet.name }, (data) => {
-                const ObjIndex = $scope.vet.data.findIndex((obj => obj._id == vet._id));
-                $scope.vet.data[ObjIndex].name = vet.name;
-            });
-        } else { // SAVE
-            vetService.save({}, { name: vet.name }, (data) => {
-                $scope.vet.data.unshift(data);
-            });
+        this.query = function() {
+            return vetList;
+        }
+        
+        this.get = function (id) {
+            if (vetList.source.value.find((obj) => obj._id == id)) {
+                return vetList.source.value.find((obj) => obj._id == id);
+            } else {
+                return Resource.get({id:id});
+            }
         }
 
-    }
-    $scope.vet.get = function (id) {
-        return vetService.get({ id: id });
-    }
-    $scope.vet.delete = function (vet) {
-        vetService.delete({ id: vet._id }, () => {
-            const index = $scope.vet.data.indexOf(vet);
-            $scope.vet.data.splice(index, 1);
-        });
-    }*/
-    /*****************************************************************
-     * Vet
-     *****************************************************************/
+        this.save = function (vet) {
+            var d = $q.defer();
+            if (vet._id) { // PUT
+                Resource.update({ id: vet._id }, {
+                    name: vet.name,
+                    __v: vet.__v
+                }, (data) => {
+                    vet.__v = vet.__v + 1; // NEW VERSION
+                    const ObjIndex = vetList.source.value.findIndex((obj) => obj._id == vet._id);
+                    vetList.source.value[ObjIndex].name = vet.name;
+                    vetList.source.value[ObjIndex].__v = vet.__v;
+                    d.resolve (vet);
+                }, (err) => {
+                    d.reject(err);
+                });
+            } else { // SAVE
+                Resource.save({}, {
+                    name: vet.name
+                }, (data) => {
+                    vetList.source.value.unshift(data)
+                    d.resolve (data);
+                },(err) => {
+                    d.reject(err);
+                });
+            }
+            return d.promise;
+        }
+
+        this.delete = function (vet) {
+            var d = $q.defer();
+            Resource.delete({ id: vet._id }, (data) => {
+                const index = vetList.source.value.indexOf(vet);
+                vetList.source.value.splice(index, 1);
+                d.resolve(data);
+            }, (err) => {
+                d.reject(err);
+            });
+            return d.promise;
+        }
+
 
 
     });

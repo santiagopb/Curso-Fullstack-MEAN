@@ -1,0 +1,12 @@
+<div class="collection">
+	<a class="collection-item active">{{$ctrl.day}}</a>
+	<a ng-click="selectHour(cell.hour, cell.value)" href="" class="collection-item" ng-repeat="cell in day">
+		<div ng-if="cell.hour == $ctrl.hour.hour" class="teal lighten-2 black-text">{{cell.hour}} {{cell.customer}} {{cell.pet}}</div>
+		<div ng-if="!(cell.hour == $ctrl.hour.hour)">{{cell.hour}} {{cell.customer}} {{cell.pet}}</div>
+	</a>
+</div>
+<style>
+	.collection {
+		margin: 0;
+	}
+</style>

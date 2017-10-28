@@ -14,9 +14,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-action flex-container" ng-repeat="pet in $ctrl.pet.data | filter:search">
+            <div class="card-action flex-container" ng-repeat="pet in pets | filter:search">
                 <span class="flex-1"><a ng-href="mascotas/{{pet._id}}" style="line-height: 3 !important;">{{ pet.name }}</a></span>
-                <a class="btn-floating waves-effect waves-light red"><i ng-click="$ctrl.pet.delete(pet);" class="material-icons">delete</i></a>
+                <a class="btn-floating waves-effect waves-light red"><i ng-click="delete(pet);" class="material-icons">delete</i></a>
             </div>
         </div>
     </div>

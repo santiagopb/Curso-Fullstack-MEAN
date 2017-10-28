@@ -5,7 +5,7 @@ module.exports = (router, io) => {
   router.get('/vets', function (req, res, next) {
     Vet.find({}, (err, vets) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
         res.json(vets);
       }
@@ -13,11 +13,11 @@ module.exports = (router, io) => {
   });
 
   router.get('/vets/:id', (req, res, next) => {
-    Vet.findById({_id: req.params.id}, (err, vets) => {
+    Vet.findById({_id: req.params.id}, (err, vet) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
-        res.json(vets);
+        res.json(vet);
       }
     });
   });
@@ -32,7 +32,7 @@ module.exports = (router, io) => {
     });
     vet.save((err) => {
       if (err) {
-        res.json({ success: false, message: 'Error!!!' });
+        res.status(404).json(err);
       } else {
         res.json(vet);
       }
@@ -42,14 +42,19 @@ module.exports = (router, io) => {
   router.put('/vets/:id', (req, res, next) => {
     if (!req.body.name) {
       console.log('No name');
-      res.json({ success: false, message: 'Debes escribir un nombre para el Veterinario' });
+      res.status(404).json(err);
       return;
     }
-    Vet.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, data) => {
+
+    console.log('8888888888888',req.body)
+    var version = req.body.__v;
+    req.body.__v++;
+    console.log('8888888888888',req.body)
+    Vet.findOneAndUpdate({ _id: req.params.id, __v: version}, req.body, {new : true}, (err, data) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
-        res.json({ success: true, message: 'Client Saved!' });
+        res.json(data);
       }
     })
   });
@@ -57,9 +62,9 @@ module.exports = (router, io) => {
   router.delete('/vets/:id', (req, res, next) => {
     Vet.deleteOne({ _id: req.params.id }, (err, data) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
-        res.json({ success: true, message: 'Client Deleted!' });
+        res.json(data);
       }
     });
   });

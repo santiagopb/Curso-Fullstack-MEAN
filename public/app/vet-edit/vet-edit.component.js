@@ -1,12 +1,27 @@
 'use strict';
 
-angular.module('vetEdit', [])
+angular.module('vetEdit', ['vetService'])
     .component('vetEdit', {
         templateUrl: '/app/vet-edit/vet-edit.html',
-        bindings: {
-            vet: '='
-        },
-        controller: function ($scope, $http, $routeParams) {
-            $scope.item = this.vet.get($routeParams.id);
+        controller: function (vetService, $scope, $routeParams) {
+            this.$onInit = () => {
+                if ($routeParams.id){
+                    $scope.item = vetService.get($routeParams.id);
+                    console.log('/////',$scope.item)
+                } else {
+                    $scope.item = {}
+                }
+            }
+            
+            $scope.$on("saveItem", function (evt, vet) {
+                vetService.save(vet).then(
+                    (res) => {
+                        $scope.item = res;
+                        $scope.$emit('toast', 'Cliente guardado');
+                    },
+                    (err) => {
+                        $scope.$emit('toast', 'Error:' + err)
+                    });
+            });
         }
     });

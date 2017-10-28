@@ -1,32 +1,61 @@
 'use strict';
 
-angular.module('petService', ['petResource'])
-    .service('petService', function (petResource) {
+angular.module('petService', ['rx'])
+    .service('petService', function ($resource, $q) {
 
-        var perSource = new Rx.BehaviorSubject(petResource.query());
-        var pet = perSource.asObservable();
-        this.pet = pet;
+        var Resource =  $resource('/api/pets/:id', {id: '@id'}, {
+            query: {
+                method: "GET",
+                isArray: true,
+                cache: true
+            },
+            update: { 
+                method:'PUT'
+            },
+            upload: {
+                method: 'POST',
+                transformRequest: formDataObject,
+                headers: { 'Content-Type': undefined, enctype:'multipart/form-data' }
+            },
+            getPetsByOwner: {
+                method: 'GET',
+                params: {id: '@id'},
+                isArray: true,
+                url: '/api/pets/:id/owner'
+            }
+        })
 
-        /*****************************************************************
-         * Pet
-         *****************************************************************/
+        function formDataObject (data) {
+            var fd = new FormData();
+            angular.forEach(data, function(value, key) {
+                fd.append(key, value);
+            });
+            return fd;
+        }
+
+        var perSource = new Rx.BehaviorSubject(Resource.query());
+        var petList = perSource.asObservable();
+
         this.query = function() {
-            return pet;
+            return petList;
         }
         
         this.get = function (id) {
-        	return pet.find(function (obj) { return obj._id === id; });
+            if (petList.source.value.find((obj) => obj._id == id)) {
+                return petList.source.value.find((obj) => obj._id == id);
+            } else {
+                return Resource.get({id:id});
+            }
         }
-        /*
-         petService.query(function (data) {
-            $scope.pet.data = data;
-        });
-        $scope.pet.get = function (id) {
-            return petService.get({ id: id });
+
+        this.getPetsByOwner = function(id) {
+            return Resource.getPetsByOwner({id: id});
         }
-        $scope.pet.save = function (pet) {
+
+        this.save = function (pet) {
+            var d = $q.defer();
             if (pet._id) { // PUT
-                petService.update({ id: pet._id }, {
+                Resource.update({ id: pet._id }, {
                     photoUrl: pet.photoUrl,
                     name: pet.name,
                     birthday: pet.birthday,
@@ -34,21 +63,26 @@ angular.module('petService', ['petResource'])
                     race: pet.race,
                     chipNumber: pet.chipNumber,
                     description: pet.description,
-                    owner: pet.owner,
+                    owner: pet.owner._id,
+                    __v: pet.__v
                 }, (data) => {
-                    const ObjIndex = $scope.pet.data.findIndex((obj => obj._id == pet._id));
-                    $scope.pet.data[ObjIndex].photoUrl = pet.photoUrl;
-                    $scope.pet.data[ObjIndex].name = pet.name;
-                    $scope.pet.data[ObjIndex].birthday = pet.birthday;
-                    $scope.pet.data[ObjIndex].specie = pet.specie;
-                    $scope.pet.data[ObjIndex].race = pet.race;
-                    $scope.pet.data[ObjIndex].chipNumber = pet.chipNumber;
-                    $scope.pet.data[ObjIndex].description = pet.description;
-                    $scope.pet.data[ObjIndex].owner = pet.owner;
-                    Materialize.toast('Los datos de la Mascota se han actualizado con exito!!!', 4000, 'rounded');
+                    pet.__v = pet.__v + 1; // NEW VERSION
+                    const ObjIndex = petList.source.value.findIndex((obj) => obj._id == pet._id);
+                    petList.source.value[ObjIndex].photoUrl = pet.photoUrl; 
+                    petList.source.value[ObjIndex].name = pet.name;
+                    petList.source.value[ObjIndex].birthday = pet.birthday;
+                    petList.source.value[ObjIndex].specie = pet.specie;
+                    petList.source.value[ObjIndex].race = pet.race;
+                    petList.source.value[ObjIndex].chipNumber = pet.chipNumber;
+                    petList.source.value[ObjIndex].description = pet.description;
+                    petList.source.value[ObjIndex].owner = pet.owner;
+                    petList.source.value[ObjIndex].__v = pet.__v;
+                    d.resolve (pet);
+                }, (err) => {
+                    d.reject(err);
                 });
             } else { // SAVE
-                petService.save({}, {
+                Resource.save({}, {
                     photoUrl: '',
                     name: pet.name,
                     birthday: pet.birthday,
@@ -58,21 +92,27 @@ angular.module('petService', ['petResource'])
                     description: pet.description,
                     owner: pet.owner
                 }, (data) => {
-                    $scope.pet.data.unshift(data);
-                    Materialize.toast('Los datos de la Mascota se han guardado con exito!!!', 4000, 'rounded');
-                }, (err) => {
-                    console.log(err);
+                    petList.source.value.unshift(data)
+                    d.resolve (data);
+                },(err) => {
+                    d.reject(err);
                 });
             }
-    
+            return d.promise;
         }
-        $scope.pet.delete = function (pet) {
-            petService.delete({ id: pet._id }, () => {
-                const index = $scope.pet.data.indexOf(pet);
-                $scope.pet.data.splice(index, 1);
+
+        this.delete = function (pet) {
+            var d = $q.defer();
+            Resource.delete({ id: pet._id }, (data) => {
+                const index = petList.source.value.indexOf(pet);
+                petList.source.value.splice(index, 1);
+                d.resolve(data);
+            }, (err) => {
+                d.reject(err);
             });
+            return d.promise;
         }
-        $scope.pet.upload = function (_id, photoUrl) {
+        this.upload = function (_id, photoUrl) {
             console.log(_id, photoUrl);
             //petService.upload({ id: pet._id }, {
             //    photoUrl: pet.photoUrl
@@ -82,6 +122,6 @@ angular.module('petService', ['petResource'])
             //    console.log('err')
             //});
         }
-    */
+    
 
     });

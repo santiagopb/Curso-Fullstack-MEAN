@@ -1,0 +1,20 @@
+<div ng-if="!pets" class="card">
+	<div class="card-content">
+		<p class="grey-text">Aun no tiene mascotas
+			asociadas!!!</p>
+	</div>
+</div>
+<div class="row" ng-repeat="pet in pets">
+	<div class="col s12 m12">
+		<div class="card" ng-click=($ctrl.pet.selectPet(pet))>
+			<div class="card-content" ng-if="!(pet._id == $ctrl.pet.selected._id)">
+				<span class="card-title">{{pet.name}}</span>
+				<p class="grey-text">{{pet.specie}} - {{pet.race}}</p>
+			</div>
+			<div class="card-content teal lighten-2" ng-if="pet._id == $ctrl.pet.selected._id">
+				<span class="card-title">{{pet.name}}</span>
+				<p class="black-text">{{pet.specie}} - {{pet.race}}</p>
+			</div>
+		</div>
+	</div>
+</div>

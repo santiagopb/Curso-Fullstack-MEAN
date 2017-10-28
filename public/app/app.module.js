@@ -5,10 +5,6 @@ angular.module('petStore', [
     'ngResource',
     'ngRoute',
     'ui.bootstrap',
-    //Services
-    'customerFactory2',
-    'petFactory2',
-    'vet',
     //Directives
     'showDatepicker',
     //Modules
@@ -21,22 +17,19 @@ angular.module('petStore', [
     'appointmentByDay',
     'appointmentByHour',
     'customerList',
-    'customerNew',
     'customerEdit',
     'customerDetails',
     'customerById',
     'petList',
-    'petNew',
     'petEdit',
     'petDetails',
     'petByOwner',
     'petNewByOwner',
     'petUploadFile',
     'vetList',
-    'vetNew',
     'vetEdit',
     'vetDetails'
-]).controller('appCtrl', function (customerFactory2, petFactory2, $scope) {
+]).controller('appCtrl', function ($scope) {
 
     var socket = io.connect('http://localhost:3000', { 'forceNew': true });
     
@@ -48,128 +41,12 @@ angular.module('petStore', [
         alert(data.message);
     });
 
-
-    $scope.customer = {};
-    $scope.pet = {};
-    $scope.vet = {};
-
-    /*****************************************************************
-     * Customer
-     *****************************************************************/
-    customerFactory2.query(function (data) {
-        $scope.customer.data = data;
+    
+    $scope.$on("toast", function(evt,data){
+        Materialize.toast(data, 4000, 'rounded');
     });
-    $scope.customer.get = function (id) {
-        return customerFactory2.get({ id: id });
-    }
-    $scope.customer.save = function (customer) {
-        if (customer._id) { // PUT
-        	customerFactory2.update({ id: customer._id }, {
-                dni: customer.dni,
-                firstName: customer.firstName,
-                lastName: customer.lastName,
-                phone: customer.phone,
-                email: customer.email,
-                note: customer.note
-            }, (data) => {
-                const ObjIndex = $scope.customer.data.findIndex((obj => obj._id == customer._id));
-                $scope.customer.data[ObjIndex].dni = customer.dni;
-                $scope.customer.data[ObjIndex].firstName = customer.firstName;
-                $scope.customer.data[ObjIndex].lastName = customer.lastName;
-                $scope.customer.data[ObjIndex].phone = customer.phone;
-                $scope.customer.data[ObjIndex].email = customer.email;
-                $scope.customer.data[ObjIndex].note = customer.note;
-                Materialize.toast('Los datos del Cliente se han guardado con exito!!!', 4000, 'rounded');
-            });
-        } else { // SAVE
-        	customerFactory2.save({}, {
-                dni: customer.dni,
-                firstName: customer.firstName,
-                lastName: customer.lastName,
-                phone: customer.phone,
-                email: customer.email,
-                note: customer.note
-            }, (data) => {
-                $scope.customer.data.unshift(data);
-                Materialize.toast('Los datos del Cliente se han guardado con exito!!!', 4000, 'rounded');
-            });
-        }
 
-    }
-    $scope.customer.delete = function (customer) {
-    	customerFactory2.delete({ id: customer._id }, () => {
-            const index = $scope.customer.data.indexOf(customer);
-            $scope.customer.data.splice(index, 1);
-        });
-    }
 
-    /*****************************************************************
-     * Pet
-     *****************************************************************/
-    petFactory2.query(function (data) {
-        $scope.pet.data = data;
-    });
-    $scope.pet.get = function (id) {
-        return petFactory2.get({ id: id });
-    }
-    $scope.pet.save = function (pet) {
-        if (pet._id) { // PUT
-            petFactory2.update({ id: pet._id }, {
-                photoUrl: pet.photoUrl,
-                name: pet.name,
-                birthday: pet.birthday,
-                specie: pet.specie,
-                race: pet.race,
-                chipNumber: pet.chipNumber,
-                description: pet.description,
-                owner: pet.owner,
-            }, (data) => {
-                const ObjIndex = $scope.pet.data.findIndex((obj => obj._id == pet._id));
-                $scope.pet.data[ObjIndex].photoUrl = pet.photoUrl;
-                $scope.pet.data[ObjIndex].name = pet.name;
-                $scope.pet.data[ObjIndex].birthday = pet.birthday;
-                $scope.pet.data[ObjIndex].specie = pet.specie;
-                $scope.pet.data[ObjIndex].race = pet.race;
-                $scope.pet.data[ObjIndex].chipNumber = pet.chipNumber;
-                $scope.pet.data[ObjIndex].description = pet.description;
-                $scope.pet.data[ObjIndex].owner = pet.owner;
-                Materialize.toast('Los datos de la Mascota se han actualizado con exito!!!', 4000, 'rounded');
-            });
-        } else { // SAVE
-            petFactory2.save({}, {
-                photoUrl: '',
-                name: pet.name,
-                birthday: pet.birthday,
-                specie: pet.specie,
-                race: pet.race,
-                chipNumber: pet.chipNumber,
-                description: pet.description,
-                owner: pet.owner
-            }, (data) => {
-                $scope.pet.data.unshift(data);
-                Materialize.toast('Los datos de la Mascota se han guardado con exito!!!', 4000, 'rounded');
-            }, (err) => {
-                console.log(err);
-            });
-        }
-
-    }
-    $scope.pet.delete = function (pet) {
-        petFactory2.delete({ id: pet._id }, () => {
-            const index = $scope.pet.data.indexOf(pet);
-            $scope.pet.data.splice(index, 1);
-        });
-    }
-    $scope.pet.upload = function (_id, photoUrl) {
-        console.log(_id, photoUrl);
-        /*petFactory2.upload({ id: pet._id }, {
-            photoUrl: pet.photoUrl
-        }, (data)=>{
-            console.log('ok');
-        }, (err) => {
-            console.log('err')
-        });*/
-    }
 
 
 }).component('app', {

@@ -1,7 +1,0 @@
-<div>
-  <label for="owner">Dueño</label>
-  <select id="owner" class="browser-default" ng-model="$ctrl.id">
-    <option value="" disabled>Selecciona el Dueño</option>
-    <option value="{{customer._id}}" ng-repeat="customer in $ctrl.customer.data">{{ customer.firstName }} {{ customer.lastName }}</option>
-  </select>
-</div>

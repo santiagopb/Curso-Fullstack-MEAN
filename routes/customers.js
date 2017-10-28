@@ -6,7 +6,7 @@ module.exports = (router, io) => {
   router.get('/customers', (req, res, next) => {
     Customer.find({}, (err, customers) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
         res.json(customers)
       }
@@ -16,7 +16,7 @@ module.exports = (router, io) => {
   router.get('/customers/:id', (req, res, next) => {
     Customer.findById({ _id: req.params.id }, (err, customer) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
         res.json(customer);
       }
@@ -25,7 +25,7 @@ module.exports = (router, io) => {
 
   router.post('/customers', (req, res, next) => {
     if (!req.body.dni) {
-      res.json({ success: false, message: 'Debes escribir un DNI' });
+      res.status(404).json({ success: false, message: 'Debes escribir un DNI' });
       next();
     }
     // Create new Client
@@ -39,7 +39,7 @@ module.exports = (router, io) => {
     });
     customer.save((err) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
         res.json(customer)
       }
@@ -49,15 +49,19 @@ module.exports = (router, io) => {
 
   router.put('/customers/:id', (req, res, next) => {
     if (!req.body.dni) {
-      res.json({ success: false, message: 'Debes escribir un DNI' });
+      res.status(404).json({ success: false, message: 'Debes escribir un DNI' });
       next();
     }
-    Customer.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, data) => {
+
+    var version = req.body.__v;
+    req.body.__v++;
+
+    Customer.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, {new : true}, (err, data) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.status(404).json(err);
       } else {
-        io.sockets.emit('customerPut', {message: 'SIIIII'});
-        res.json({ success: true, message: 'Client Saved!' });
+        //io.sockets.emit('customerPut', {message: 'SIIIII'});
+        res.json(data);
       }
     })
   });
@@ -65,9 +69,9 @@ module.exports = (router, io) => {
   router.delete('/customers/:id', (req, res, next) => {
     Customer.deleteOne({ _id: req.params.id }, (err, data) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.json(err);
       } else {
-        res.json({ success: true, message: 'Client Deleted!' });
+        res.json(data);
       }
     });
   });

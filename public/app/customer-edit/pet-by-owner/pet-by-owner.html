@@ -1,0 +1,20 @@
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">MIS MASCOTAS<a ng-if="!newPet && $ctrl.customerId" ng-click="addPet();" class="btn-floating waves-effect waves-light right"><i class="material-icons" style="line-height: inherit !important;">add</i></a></span>
+		<p ng-if="!pets" class="grey-text">Aun no tiene mascotas asociadas!!!</p>
+	</div>
+</div>
+<pet-new-by-owner ng-if="newPet"  item="item"></pet-new-by-owner>
+<div class="row" ng-repeat="pet in pets">
+	<div class="col s12 m12">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">{{pet.name}}</span>
+				<p class="grey-text">{{pet.specie}} - {{pet.race}}</p>
+			</div>
+			<div class="card-action">
+				<a ng-href="mascotas/{{pet._id}}">{{pet.specie}} - {{pet.race}}</a>
+			</div>
+		</div>
+	</div>
+</div>

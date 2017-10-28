@@ -9,7 +9,7 @@
       </li>
     </ul>
     <ul class="right">
-      <li><a ng-click="$ctrl.option.save($ctrl.item);"><i class="material-icons">save</i></a></li>
+      <li><a ng-click="$emit('saveItem', $ctrl.item)"><i class="material-icons">save</i></a></li>
     </ul>
   </div>
 </nav>

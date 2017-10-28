@@ -20,29 +20,29 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 $('.modal').modal()
             }
 
-            $scope.selectDay = function(date, value) {
-                $scope.daySelected = {date: date, value: value};
+            $scope.selectDay = function (date, value) {
+                $scope.daySelected = { date: date, value: value };
             }
 
             $scope.selectMonth = (date) => {
-                date = moment(date, 'YYYYMM');               
-                $scope.date = getDate(date);                
-                var appointmentSubscription = appointmentService.getCalendar($scope.date.current, $scope.date.next).subscribe((subscription)=> {
-                	subscription.$promise.then(function (db) {
-                		$scope.calendar = getCalendar(db, date);
-                    	console.log(db)
-                	})
-                	
-				});
+                date = moment(date, 'YYYYMM');
+                $scope.date = getDate(date);
+                var appointmentSubscription = appointmentService.getCalendar($scope.date.current, $scope.date.next).subscribe((subscription) => {
+                    subscription.$promise.then(function (db) {
+                        $scope.calendar = getCalendar(db, date);
+                        $scope.daySelected = {};
+                    })
+
+                });
             }
 
-            
+
             function getDate(date) {
                 date.current = moment(date).startOf('month').format('YYYYMMDD');
                 date.previous = moment(date).startOf('month').subtract(1, 'M').format('YYYYMMDD');
                 date.next = moment(date).startOf('month').add(1, 'M').format('YYYYMMDD');
                 date.month = moment(date).format('MMMM');
-                date.year = moment(date).format('YYYY') 
+                date.year = moment(date).format('YYYY')
                 return date;
             }
 
@@ -50,10 +50,7 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 var calendar = [];
                 const startWeek = moment(date).startOf('month').week();
                 var endWeek = moment(date).endOf('month').week();
-                endWeek = endWeek == 1? 53 : endWeek; // Gregorian calendar
-														// (Some times 31 Dic =
-														// first week on next
-														// year)
+                endWeek = endWeek == 1 ? 53 : endWeek; // Gregorian calendar (Some times 31 Dic = first week on next year)
 
                 for (var week = startWeek; week <= endWeek; week++) {
                     calendar.push(Array(7).fill(0).map((n, i) => {
@@ -75,11 +72,7 @@ angular.module('appointmentByMonth', ['appointmentService'])
 
                 return calendar;
             }
-            
-            
-            $scope.$on("saveAppointment", function(evt,data){
-            	alert('okokok')
-            	  //$scope.daySelected = 
-            });
+
+
         }
     });

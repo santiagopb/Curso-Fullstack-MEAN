@@ -1,16 +1,29 @@
 'use strict';
 
-angular.module('vetList', ['vet'])
+angular.module('vetList', ['vetService'])
     .component('vetList', {
         templateUrl: '/app/vet-list/vet-list.html',
-        controller: function (vetService, $scope, $http) {
+        controller: function (vetService, $scope) {
             
-            this.$onInit = function() {
-                $scope.vet = vetService.getVet();
-                console.log($scope.vet);
+            this.$onInit = () => {
+                var vetSubscription = vetService.query()
+                    .subscribe((subscription) => {
+                        subscription.$promise.then(function (data) {
+                            $scope.vets = data;
+                        })
+                    });
             }
-                
-            
+
+            $scope.delete = (vet) => {
+                vetService.delete(vet).then(
+                    (res) => {
+                        $scope.$emit('toast', 'Cliente borrado');
+                    },
+                    (err) => {
+                        $scope.$emit('toast', 'Error');
+                    }
+                );
+            }
             
         }
     });
