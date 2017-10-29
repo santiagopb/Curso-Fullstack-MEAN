@@ -25,8 +25,8 @@
 <div class="flex-container margin-bottom" ng-repeat="date in calendar">
 	<div class="card flex-1" ng-repeat="cell in date ">
 		<div ng-if="cell.isValid" class="card-action">
-			<a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger" href="#modal1">{{ cell.day }}</a> <span class="new badge"
-			 data-badge-caption="{{ cell.cant  }}"></span>
+			<a ng-click="selectDay(cell.date, cell.value)" class="modal-trigger" href="#modal1">{{ cell.day }}</a>
+			<span class="new badge" data-badge-caption="{{cell.cant}}"></span>
 		</div>
 		<div ng-if="!cell.isValid" class="card-content">
 			<span class="grey-text">{{ cell.day }}</span>

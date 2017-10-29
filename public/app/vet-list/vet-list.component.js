@@ -4,11 +4,12 @@ angular.module('vetList', ['vetService'])
     .component('vetList', {
         templateUrl: '/app/vet-list/vet-list.html',
         controller: function (vetService, $scope) {
+            var vetSubscription;
             
             this.$onInit = () => {
-                var vetSubscription = vetService.query()
+                this.vetSubscription = vetService.query()
                     .subscribe((subscription) => {
-                        subscription.$promise.then(function (data) {
+                        subscription.$promise.then((data) => {
                             $scope.vets = data;
                         })
                     });
@@ -23,6 +24,14 @@ angular.module('vetList', ['vetService'])
                         $scope.$emit('toast', 'Error');
                     }
                 );
+            }
+
+            this.$onDestroy = () => {
+                /**
+                 * Unsubscribe the old way
+                 * now (dispose became unsubscribe in RxJS5)
+                 */
+                this.vetSubscription.dispose();
             }
             
         }

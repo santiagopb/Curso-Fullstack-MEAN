@@ -3,15 +3,13 @@
 angular.module('customerList', ['customerService'])
     .component('customerList', {
         templateUrl:'/app/customer-list/customer-list.html',
-        bindings: {
-            customer: '='
-        },
         controller: function(customerService, $scope) {
+            var customerSubscription;
 
             this.$onInit = () => {
-                var customerSubscription = customerService.query()
+                this.customerSubscription = customerService.query()
                     .subscribe((subscription) => {
-                        subscription.$promise.then(function (data) {
+                        subscription.$promise.then((data) => {
                             $scope.customers = data;
                         })
                     });
@@ -26,6 +24,14 @@ angular.module('customerList', ['customerService'])
                         $scope.$emit('toast', 'Error');
                     }
                 );
+            }
+
+            this.$onDestroy = () => {
+                /**
+                 * Unsubscribe the old way
+                 * now (dispose became unsubscribe in RxJS5)
+                 */
+                this.customerSubscription.dispose();
             }
 
         }

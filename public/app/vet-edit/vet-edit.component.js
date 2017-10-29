@@ -7,7 +7,6 @@ angular.module('vetEdit', ['vetService'])
             this.$onInit = () => {
                 if ($routeParams.id){
                     $scope.item = vetService.get($routeParams.id);
-                    console.log('/////',$scope.item)
                 } else {
                     $scope.item = {}
                 }

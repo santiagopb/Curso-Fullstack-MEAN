@@ -14,21 +14,22 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 return moment(i, 'e').format('dddd');
             });
             $scope.back = () => { window.history.back(); }
+            var appointmentSubscription;
 
             this.$onInit = () => {
                 $scope.selectMonth(new Date());
                 $('.modal').modal()
             }
 
-            $scope.selectDay = function (date, value) {
+            $scope.selectDay = (date, value) => {
                 $scope.daySelected = { date: date, value: value };
             }
 
             $scope.selectMonth = (date) => {
                 date = moment(date, 'YYYYMM');
                 $scope.date = getDate(date);
-                var appointmentSubscription = appointmentService.getCalendar($scope.date.current, $scope.date.next).subscribe((subscription) => {
-                    subscription.$promise.then(function (db) {
+                this.appointmentSubscription = appointmentService.getCalendar($scope.date.current, $scope.date.next).subscribe((subscription) => {
+                    subscription.$promise.then((db) => {
                         $scope.calendar = getCalendar(db, date);
                         $scope.daySelected = {};
                     })
@@ -73,6 +74,12 @@ angular.module('appointmentByMonth', ['appointmentService'])
                 return calendar;
             }
 
-
+            this.$onDestroy = () => {
+                /**
+                 * Unsubscribe the old way
+                 * now (dispose became unsubscribe in RxJS5)
+                 */
+                this.appointmentSubscription.dispose();
+            }
         }
     });

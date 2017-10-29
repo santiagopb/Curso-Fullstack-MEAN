@@ -3,15 +3,13 @@
 angular.module('petList', ['petService'])
     .component('petList', {
         templateUrl:'/app/pet-list/pet-list.html',
-        bindings: {
-            pet: '='
-        },
         controller: function(petService, $scope) {
+            var petSubscription;
 
             this.$onInit = () => {
-                var petSubscription = petService.query()
+                this.petSubscription = petService.query()
                     .subscribe((subscription) => {
-                        subscription.$promise.then(function (data) {
+                        subscription.$promise.then((data) => {
                             $scope.pets = data;
                         })
                     });
@@ -27,5 +25,14 @@ angular.module('petList', ['petService'])
                     }
                 );
             }
+
+            this.$onDestroy = () => {
+                /**
+                 * Unsubscribe the old way
+                 * now (dispose became unsubscribe in RxJS5)
+                 */
+                this.petSubscription.dispose();
+            }
+
         }
     });
