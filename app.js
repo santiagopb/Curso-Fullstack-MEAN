@@ -19,7 +19,6 @@ const customers = require('./routes/customers')(router, io);
 const pets = require('./routes/pets')(router, io);
 const vets = require('./routes/vets')(router, io);
 const appointments = require('./routes/appointments')(router, io);
-const seeds = require('./routes/seeds')(router);
 
 
 // uncomment after placing your favicon in /public
@@ -39,7 +38,6 @@ app.use('/api', customers);
 app.use('/api', pets);
 app.use('/api', vets);
 app.use('/api', appointments);
-app.use('/seed', seeds);
 
 
 //Front End

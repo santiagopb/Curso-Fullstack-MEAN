@@ -45,36 +45,6 @@ module.exports = (router, io) => {
     });
 
     router.post('/pets', (req, res, next) => {
-        /*
-        if (!req.body.photoUrl) {
-          res.json({success: false, message: 'Debes escribir especificar una url para la foto para la Mascota'});
-          return;
-        }
-        if (!req.body.name) {
-          res.json({success: false, message: 'Debes escribir un nombre para la Mascota'});
-          return;
-        }
-        if (!req.body.birthday) {
-          res.json({success: false, message: 'Debes escribir una fecha para la Mascota'});
-          return;
-        }
-        if (!req.body.specie) {
-          res.json({success: false, message: 'Debes escribir una especie para la Mascota'});
-          return;
-        }
-        if (!req.body.race) {
-            res.json({success: false, message: 'Debes escribir una raza para la Mascota'});
-            return;
-        }
-        if (!req.body.chipNumber) {
-            res.json({success: false, message: 'Debes escribir un numero de chip para la Mascota'});
-            return;
-        }
-        if (!req.body.owner) {
-            res.json({success: false, message: 'Debes especificar un dueño para la Mascota'});
-            return;
-        }
-        */
 
         const pet = new Pet({
             photoUrl: '',
@@ -93,10 +63,11 @@ module.exports = (router, io) => {
                 pet.populate({
                     path: 'owner',
                     model: 'Customer'
-                }, (err, petPopulate)=> {
+                }, (err, petPopulate) => {
                     if (err) {
                         res.status(404).json(err);
                     } else {
+                        io.sockets.emit('petPost', petPopulate);
                         res.json(petPopulate);
                     }
                 });
@@ -134,23 +105,35 @@ module.exports = (router, io) => {
         var version = req.body.__v;
         req.body.__v++;
 
-        Pet.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, {new : true}, (err, pet) => {
+        Pet.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, { new: true }, (err, pet) => {
             if (err) {
                 res.status(404).json(err);
             } else {
                 pet.populate({
                     path: 'owner',
                     model: 'Customer'
-                }, (err, petPopulate)=> {
+                }, (err, petPopulate) => {
                     if (err) {
                         res.json({ success: false, message: 'Error!!!' });
                     } else {
-                        console.log(petPopulate)
+                        io.sockets.emit('petPut', petPopulate);
                         res.json(petPopulate);
                     }
                 });
             }
         })
     });
+
+    router.delete('/pets/:id', (req, res, next) => {
+        Vet.deleteOne({ _id: req.params.id }, (err, data) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                io.sockets.emit('petDelete', data);
+                res.json(data);
+            }
+        });
+    });
+
     return router;
 }

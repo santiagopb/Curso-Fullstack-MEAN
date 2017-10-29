@@ -43,70 +43,6 @@ module.exports = (router, io) => {
             const initdate = moment(req.params.initDate, 'YYYYMMDD').toDate();
             const enddate = moment(req.params.endDate, 'YYYMMDD').toDate();
             
-            /*
-            Appointment.aggregate([
-                {
-                	"$match": {
-                		initDate: {
-                			$gte: new Date(initdate),
-                			$lte: new Date(enddate)
-                		}
-                	}
-                },
-                { 
-                    "$lookup": { 
-                        from: "Pet", 
-                        localField: "pet", 
-                        foreignField: "_id", 
-                        as: 'pet' 
-                    } 
-                },
-                {
-                    "$group": {
-                        _id: {$dayOfYear: "$initDate"},
-                        date: {"$first":"$initDate"},
-                        values: {
-                        	"$push": {
-                        		initHour: { "$concat":[
-                        			{"$substr":[{$hour: "$initDate"},0,2]},
-                        			{"$substr":[{$minute: "$initDate"},0,2]}
-                        			]
-                        		},
-                        		endHour: {$hour: "$endDate"},
-                        		pet: "$pet",
-                        		vet: "$vet"
-                        			
-                        	}
-                        },
-                        total: { $sum: 1 }
-                    }
-                },
-                {
-                	"$project": {
-                		_id: 0,
-                		date: 1,
-                		values: 1,
-                		pet: 1
-                	}
-                },
-                { 
-            		"$sort":{
-            			date: 1
-            		} 
-            	}
-            ],
-            function(err,results) {
-                if (err) console.log('ERROR------------------');
-                else{
-                	res.json(results);
-
-                    
-                }
-                
-            })
-            */
-           
-
             Appointment.find({
                 initDate: {
                     $gte: initdate,
@@ -116,16 +52,6 @@ module.exports = (router, io) => {
                 if (err) {
                     res.status(404).json({ success: false, message: err });
                 } else {
-                	appointments = appointments.reduce(function(mapa, item){
-                		date = moment(item.initDate).format('YYYY-MM-DD');
-                		time = moment(item.initDate).format('HH:mm');
-                		if (!mapa) var mapa={};
-                		if (!mapa[date]) mapa[date] = {}
-                		if (!mapa[date][time]) mapa[date][time] = item
-                		
-                		return mapa;
-                	},{})
-                    
                 	res.json(appointments);
                 }
             }).populate({
@@ -156,6 +82,7 @@ module.exports = (router, io) => {
             res.status(404).json({ success: false, message: 'Debes especificar una mascota' });
             return;
         }
+
         const appointment = new Appointment({
             initDate: req.body.initDate,
             endDate: req.body.endDate,
@@ -166,33 +93,56 @@ module.exports = (router, io) => {
         });
         appointment.save((err) => {
             if (err) {
-                res.json({ success: false, message: 'Error!!!' });
+                res.status(404).json({ success: false, message: 'Error!!!' });
             } else {
-                Pet.populate(appointment, { path: "pet" }, (err, pet) => {
-                    if (err) {
-                        res.json({ success: false, message: 'Error!!!' });
-                        return;
+                appointment.populate({
+                    path: 'pet',
+                    model: 'Pet',
+                    select: 'name specie',
+                    populate: {
+                        path: 'owner',
+                        model: 'Customer',
+                        select: 'firstName lastName'
                     }
-                    Vet.populate(appointment, { path: "vet" }, (err, vet) => {
-                        if (err) {
-                            res.json({ success: false, message: 'Error!!!' });
-                            return;
-                        }
-                        res.json(appointment);
-                    });
+                }, (err, appointmentPopulate)=> {
+                    if (err) {
+                        res.status(404).json(err);
+                    } else {
+                        io.sockets.emit('appointmentPost', appointmentPopulate);
+                        res.json(appointmentPopulate);
+                    }
                 });
+                
             }
         })
     });
     
     router.put('/appointments/:id', (req, res, next) => {
-    	Appointment.findOneAndUpdate({ _id: req.params.id }, req.body, { upsert: true }, (err, data) => {
+
+        var version = req.body.__v;
+        req.body.__v++;
+
+    	Appointment.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, {new : true}, (err, appointment) => {
           if (err) {
-        	  console.log(err);
-            res.json({ success: false, message: err });
+            res.status(404).json(err);
           } else {
-        	  console.log('Ok')
-            res.json({ success: true, message: 'Saved!' });
+            appointment.populate({
+                path: 'pet',
+                model: 'Pet',
+                select: 'name specie',
+                populate: {
+                    path: 'owner',
+                    model: 'Customer',
+                    select: 'firstName lastName'
+                }
+            }, (err, appointmentPopulate)=> {
+                if (err) {
+                    res.status(404).json(err);
+                } else {
+                    io.sockets.emit('appointmentPut', appointmentPopulate);
+                    res.json(appointmentPopulate);
+                }
+            });
           }
         })
       });

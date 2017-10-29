@@ -37,9 +37,15 @@ angular.module('appointment', ['appointmentService', 'customerService', 'petServ
         	
 			$scope.saveAppointment = () => {
 				_this.value.pet = $scope.pet.selected;
-				appointmentService.save(_this.value);
-				var thisDay = moment(_this.value.initDate).format('D');
-				$scope.$emit("toast", 'Los datos de la Cita se han guardado con exito!!!');
+				appointmentService.save(_this.value).then(
+                    (res) => {
+                        this.value = res;
+						$scope.$emit('toast', 'Cita guardada');
+						$scope.$emit("saveItem", _this.value);
+                    },
+                    (err) => {
+                        $scope.$emit('toast', 'Error:' + err)
+					});
 			}
 			
 			$scope.pet.selectPet = (pet) => {

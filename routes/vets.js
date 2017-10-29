@@ -34,6 +34,7 @@ module.exports = (router, io) => {
       if (err) {
         res.status(404).json(err);
       } else {
+        io.sockets.emit('vetPost', vet);
         res.json(vet);
       }
     });
@@ -46,14 +47,13 @@ module.exports = (router, io) => {
       return;
     }
 
-    console.log('8888888888888',req.body)
     var version = req.body.__v;
     req.body.__v++;
-    console.log('8888888888888',req.body)
     Vet.findOneAndUpdate({ _id: req.params.id, __v: version}, req.body, {new : true}, (err, data) => {
       if (err) {
         res.status(404).json(err);
       } else {
+        io.sockets.emit('vetPut', data);
         res.json(data);
       }
     })
@@ -64,6 +64,7 @@ module.exports = (router, io) => {
       if (err) {
         res.status(404).json(err);
       } else {
+        io.sockets.emit('vetDelete', data);
         res.json(data);
       }
     });

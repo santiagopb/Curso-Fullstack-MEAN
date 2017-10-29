@@ -9,6 +9,7 @@ angular.module('appointmentByDay', [])
         	hour: '='
         },
         controller: function ($scope) {  
+			$scope.hourSelected;
 			$scope.day = [];
 
         	this.$onInit = () => {
@@ -23,7 +24,7 @@ angular.module('appointmentByDay', [])
 					this.day = moment(this.day).format('dddd, Do MMMM YYYY');
 					this.hour={};
                 }
-        	}.bind(this);
+			}.bind(this);
         	
         	$scope.selectHour = function(hour, value) {
 				if (!value) { // 
@@ -32,6 +33,7 @@ angular.module('appointmentByDay', [])
 					value = {initDate, endDate}
 				}	
 				this.hour = {hour:hour, value:value};
+				$scope.hourSelected = hour;
         	}.bind(this);
         	
         	function getDay(thisDay, db=[]) {
@@ -56,6 +58,12 @@ angular.module('appointmentByDay', [])
                 return day;
             };
 			
+			$scope.$on("changeCalendarByDay", function (evt, appointment) {
+				const ObjIndex = $scope.day.findIndex((obj) => obj.hour == $scope.hourSelected);
+				$scope.day[ObjIndex].value = appointment;
+				$scope.day[ObjIndex].customer = appointment.pet.owner.firstName;
+				$scope.day[ObjIndex].pet = appointment.pet.name;
+            });
 			
         }
     });

@@ -41,6 +41,7 @@ module.exports = (router, io) => {
       if (err) {
         res.status(404).json(err);
       } else {
+        io.sockets.emit('customerPost', customer);
         res.json(customer)
       }
     });
@@ -60,7 +61,7 @@ module.exports = (router, io) => {
       if (err) {
         res.status(404).json(err);
       } else {
-        //io.sockets.emit('customerPut', {message: 'SIIIII'});
+        io.sockets.emit('customerPut', data);
         res.json(data);
       }
     })
@@ -71,6 +72,7 @@ module.exports = (router, io) => {
       if (err) {
         res.json(err);
       } else {
+        io.sockets.emit('customerDelete', data);
         res.json(data);
       }
     });
