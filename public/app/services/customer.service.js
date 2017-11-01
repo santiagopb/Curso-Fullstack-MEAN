@@ -42,18 +42,7 @@ angular.module('customerService', ['rx'])
                     note: customer.note,
                     __v: customer.__v
                 }, (data) => {
-                    /*
-                    customer.__v = customer.__v + 1 // NEW VERSION
-                    const ObjIndex = customerList.source.value.findIndex((obj) => obj._id == customer._id);
-                    customerList.source.value[ObjIndex].dni = customer.dni; 
-                    customerList.source.value[ObjIndex].firstName = customer.firstName;
-                    customerList.source.value[ObjIndex].lastName = customer.lastName;
-                    customerList.source.value[ObjIndex].phone = customer.phone;
-                    customerList.source.value[ObjIndex].email = customer.email;
-                    customerList.source.value[ObjIndex].note = customer.note;
-                    customerList.source.value[ObjIndex].__v = customer.__v;
-                    */
-                    d.resolve (customer);
+                    d.resolve (data);
                 }, (err) => {
                     d.reject(err);
                 });
@@ -66,7 +55,6 @@ angular.module('customerService', ['rx'])
                     email: customer.email,
                     note: customer.note
                 }, (data) => {
-                    //customerList.source.value.unshift(data)
                     d.resolve (data);
                 },(err) => {
                     d.reject(err);
@@ -78,8 +66,6 @@ angular.module('customerService', ['rx'])
         this.delete = function (customer) {
             var d = $q.defer();
         	Resource.delete({ id: customer._id }, (data) => {
-                //const index = customerList.source.value.indexOf(customer);
-                //customerList.source.value.splice(index, 1);
                 d.resolve(data);
             }, (err) => {
                 d.reject(err);

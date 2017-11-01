@@ -7,13 +7,9 @@
 <div class="row" ng-repeat="pet in pets">
 	<div class="col s12 m12">
 		<div class="card" ng-click=($ctrl.pet.selectPet(pet))>
-			<div class="card-content" ng-if="!(pet._id == $ctrl.pet.selected._id)">
-				<span class="card-title">{{pet.name}}</span>
-				<p class="grey-text">{{pet.specie}} - {{pet.race}}</p>
-			</div>
-			<div class="card-content teal lighten-2" ng-if="pet._id == $ctrl.pet.selected._id">
-				<span class="card-title">{{pet.name}}</span>
-				<p class="black-text">{{pet.specie}} - {{pet.race}}</p>
+			<div class="card-content" ng-class="{'teal lighten-2': pet._id == $ctrl.pet.selected._id}">
+				<span class="card-title">{{pet.name | uppercase}}</span>
+				<p ng-class="{'grey-text': pet._id != $ctrl.pet.selected._id, 'black-text': pet._id == $ctrl.pet.selected._id}">{{pet.specie}} - {{pet.race}}</p>
 			</div>
 		</div>
 	</div>

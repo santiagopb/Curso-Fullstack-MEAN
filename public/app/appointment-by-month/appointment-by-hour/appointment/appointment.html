@@ -1,4 +1,7 @@
-<a ng-if="pet.selected._id" ng-click="saveAppointment()" class="btn-floating right  waves-effect waves-light">
+<a ng-show="$ctrl.value._id" ng-click="deleteAppointment()" class="btn-floating left  waves-effect waves-light">
+	<i class="material-icons red">delete</i>
+</a>
+<a ng-show="pet.selected._id" ng-click="saveAppointment()" class="btn-floating right  waves-effect waves-light">
 	<i class="material-icons">save</i>
 </a>
 <appointment-customer id="$ctrl.value.pet.owner._id" customer="customer"></appointment-customer>

@@ -66,20 +66,7 @@ angular.module('petService', ['rx'])
                     owner: pet.owner._id,
                     __v: pet.__v
                 }, (data) => {
-                    /*
-                    pet.__v = pet.__v + 1; // NEW VERSION
-                    const ObjIndex = petList.source.value.findIndex((obj) => obj._id == pet._id);
-                    petList.source.value[ObjIndex].photoUrl = pet.photoUrl; 
-                    petList.source.value[ObjIndex].name = pet.name;
-                    petList.source.value[ObjIndex].birthday = pet.birthday;
-                    petList.source.value[ObjIndex].specie = pet.specie;
-                    petList.source.value[ObjIndex].race = pet.race;
-                    petList.source.value[ObjIndex].chipNumber = pet.chipNumber;
-                    petList.source.value[ObjIndex].description = pet.description;
-                    petList.source.value[ObjIndex].owner = pet.owner;
-                    petList.source.value[ObjIndex].__v = pet.__v;
-                    */
-                    d.resolve (pet);
+                    d.resolve (data);
                 }, (err) => {
                     d.reject(err);
                 });
@@ -94,7 +81,6 @@ angular.module('petService', ['rx'])
                     description: pet.description,
                     owner: pet.owner
                 }, (data) => {
-                    //petList.source.value.unshift(data)
                     d.resolve (data);
                 },(err) => {
                     d.reject(err);
@@ -106,8 +92,6 @@ angular.module('petService', ['rx'])
         this.delete = function (pet) {
             var d = $q.defer();
             Resource.delete({ id: pet._id }, (data) => {
-                //const index = petList.source.value.indexOf(pet);
-                //petList.source.value.splice(index, 1);
                 d.resolve(data);
             }, (err) => {
                 d.reject(err);

@@ -79,10 +79,18 @@ angular.module('appointmentByMonth', ['appointmentService'])
 
             $scope.$on("saveItem", function (evt, appointment) {
                 /**
-                 * The ERROR - binding data between components
+                 * Synchronize data change 
                  */
                 $scope.$broadcast("changeCalendarByDay", appointment)
             });
+
+            $scope.$on("deleteItem", function (evt, appointment) {
+                /**
+                 * Synchronize data delete and unselected hour
+                 */
+                $scope.hour.selected.hour = null;
+                $scope.$broadcast("deleteItemCalendarByDay", appointment);
+            })
 
             this.$onDestroy = () => {
                 /**

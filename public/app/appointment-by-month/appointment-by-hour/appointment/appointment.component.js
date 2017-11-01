@@ -23,6 +23,7 @@ angular.module('appointment', ['appointmentService', 'customerService', 'petServ
 			}
 
 			function sincData () {
+				$scope.pet.selected = {};
 				var customerSubscription = customerService.query().subscribe((data)=> {
 					$scope.customer.data = data;
 				});
@@ -41,13 +42,26 @@ angular.module('appointment', ['appointmentService', 'customerService', 'petServ
                     (res) => {
                         this.value = res;
 						$scope.$emit('toast', 'Cita guardada');
-						$scope.$emit("saveItem", _this.value);
+						$scope.$emit('saveItem', _this.value);
                     },
                     (err) => {
                         $scope.$emit('toast', 'Error:' + err)
 					});
 			}
 			
+			$scope.deleteAppointment = () => {
+				appointmentService.delete(_this.value).then(
+					(res) => {
+						$scope.$emit('toast', 'Cita borrada');
+						$scope.$emit('deleteItem', _this.value);
+					},
+					(err) => {
+						$scope.$emit('toast', 'Error:' + err);
+					}
+				);
+
+			}
+
 			$scope.pet.selectPet = (pet) => {
 				$scope.pet.selected = pet;
 			}

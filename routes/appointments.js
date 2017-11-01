@@ -166,5 +166,16 @@ module.exports = (router, io) => {
         })
       });
 
+      router.delete('/appointments/:id', (req, res, next) => {
+        Appointment.deleteOne({ _id: req.params.id }, (err, data) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                io.sockets.emit('appointmentDelete', req.params.id);
+                res.json(data);
+            }
+        });
+    });
+
     return router;
 }

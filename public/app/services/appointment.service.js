@@ -29,18 +29,12 @@ angular.module('appointmentService', ['rx'])
     	var _initDate = moment(new Date).format('YYYYMMDD');
         var _endDate = moment(new Date).format('YYYYMMDD');
         
-        function _refresh () {
-            console.log(_initDate, _endDate)
-			appointmentSource.onNext(Resource.getCalendar({initDate: _initDate, endDate: _endDate}));
-        }
-		
+
     	var appointmentSource = new Rx.BehaviorSubject(Resource.getCalendar({initDate: _initDate, endDate: _endDate}));
     	var appointmentList = appointmentSource.asObservable();
     	
     	this.getCalendar = function  (initDate, endDate) {
-    		_initDate = initDate;
-    		_endDate = endDate;
-            appointmentSource.onNext(Resource.getCalendar({initDate: _initDate, endDate: _endDate}));
+            appointmentSource.onNext(Resource.getCalendar({initDate: initDate, endDate: endDate}));
     		return appointmentList;
         }
         
@@ -59,17 +53,7 @@ angular.module('appointmentService', ['rx'])
                     note: appointment.note,
                     __v: appointment.__v
                 }, (data) => {
-                    /*
-                    appointment.__v = appointment.__v + 1 // NEW VERSION
-                    const ObjIndex = appointmentList.source.value.findIndex((obj) => obj._id == appointment._id);
-                    appointmentList.source.value[ObjIndex].initDate = appointment.initDate; 
-                    appointmentList.source.value[ObjIndex].endDate = appointment.endDate;
-                    appointmentList.source.value[ObjIndex].pet = appointment.pet;
-                    appointmentList.source.value[ObjIndex].vet = appointment.vet;
-                    appointmentList.source.value[ObjIndex].note = appointment.note;
-                    appointmentList.source.value[ObjIndex].__v = appointment.__v;
-                    */
-                    d.resolve (appointment);
+                    d.resolve (data);
                 }, (err) => {
                     d.reject(err);
                 });
@@ -81,8 +65,6 @@ angular.module('appointmentService', ['rx'])
                     vet: appointment.vet,
                     note: appointment.note
                 }, (data) => {
-                    //_refresh();
-                    //appointmentList.source.value.unshift(data);
                     d.resolve (data);
                 }, (err) => {
                     d.reject(err);
@@ -94,8 +76,6 @@ angular.module('appointmentService', ['rx'])
         this.delete = function (appointment) {
             var d = $q.defer();
         	Resource.delete({ id: appointment._id }, (data) => {
-                //const index = appointmentList.source.value.indexOf(appointment);
-                //appointmentList.source.value.splice(index, 1);
                 d.resolve(data);
             }, (err) => {
                 d.reject(err);

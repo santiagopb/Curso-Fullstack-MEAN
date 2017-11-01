@@ -46,7 +46,7 @@ angular.module('appointmentByDay', [])
                 var startDate = moment(thisDay).set({hour: startHour});
                 var endDate = moment(thisDay).set({hour: endHour});
                 for (var hour = startDate; hour <= endDate; hour=moment(hour).add(intervalInHour, 'H')) {
-                	var hourValue = moment(hour).format('HH:mm')
+					var hourValue = moment(hour).format('HH:mm');
                     day.push({
                     	hour: hourValue,
                     	value: db[hourValue],
@@ -63,7 +63,14 @@ angular.module('appointmentByDay', [])
 				$scope.day[ObjIndex].value = appointment;
 				$scope.day[ObjIndex].customer = appointment.pet.owner.firstName;
 				$scope.day[ObjIndex].pet = appointment.pet.name;
-            });
+			});
+			
+			$scope.$on("deleteItemCalendarByDay", function (evt, id) {
+				const ObjIndex = $scope.day.findIndex((obj) => obj.hour == $scope.hourSelected);
+				$scope.day[ObjIndex].value = "";
+				$scope.day[ObjIndex].customer = "";
+				$scope.day[ObjIndex].pet = "";
+			})
 			
         }
     });

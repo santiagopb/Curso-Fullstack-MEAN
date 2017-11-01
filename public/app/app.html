@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper light-blue darken-4">
-            <a ng-href="/" class="left brand-logo"><i class="material-icons">cloud</i>Logo</a>
+            <a ng-href="/" class="left brand-logo">PetStore</a>
             <ul class="right">
                 <li><a ng-href="/clientes"><i class="material-icons">person</i></a></li>
                 <li><a ng-href="/mascotas"><i class="material-icons">pets</i></a></li>
@@ -17,16 +17,38 @@
 
 <footer class="page-footer light-blue darken-4">
     <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Socket IO</h5>
-          <socket-io></socket-io>
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Socket IO</h5>
+                <socket-io></socket-io>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Tecnologías Usadas</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="">Mongodb</a></li>
+                    <li><a class="grey-text text-lighten-3" href="">Express</a></li>
+                    <li><a class="grey-text text-lighten-3" href="">Angularjs</a></li>
+                    <li><a class="grey-text text-lighten-3" href="">Nodejs</a></li>
+                    <li><a class="grey-text text-lighten-3" href="">Socket.io</a></li>
+                    <li><a class="grey-text text-lighten-3" href="">Rxjs</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
     </div>
     <div class="footer-copyright">
-      <div class="container">
-      © 2017 FullStack
-      </div>
+        <div class="container">
+            © 2017 FullStack
+        </div>
     </div>
-  </footer>
+</footer>
+
+<style>
+    a.brand-logo {
+        margin-left: 20px;
+        text-decoration: none;
+    }
+
+    footer {
+        margin-top: 80px;
+    }
+</style>
