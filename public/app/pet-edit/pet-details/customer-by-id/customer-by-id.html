@@ -5,3 +5,13 @@
     <option value="{{customer._id}}" ng-repeat="customer in customers">{{ customer.firstName }} {{ customer.lastName }}</option>
   </select>
 </div>
+<!--
+<ui-select ng-model="$ctrl.id">
+  <ui-select-match placeholder="Selecciona un cliente">
+    {{$select.selected.firstName}}
+  </ui-select-match>
+  <ui-select-choices repeat="e in customers | filter: $select.search">
+    {{ e.firstName }} {{ e.lastName}}
+  </ui-select-choices>
+</ui-select>
+-->

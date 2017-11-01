@@ -7,6 +7,7 @@ angular.module('petStore', [
     'ui.bootstrap',
     //Directives
     'showDatepicker',
+    'inputValidator',
     //Modules
     'menu',
     'index',
@@ -26,6 +27,7 @@ angular.module('petStore', [
     'petByOwner',
     'petNewByOwner',
     'petUploadFile',
+    'petAppointmentList',
     'vetList',
     'vetEdit',
     'vetDetails',

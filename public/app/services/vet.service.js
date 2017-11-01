@@ -35,11 +35,13 @@ angular.module('vetService', ['rx'])
                     name: vet.name,
                     __v: vet.__v
                 }, (data) => {
+                    /*
                     vet.__v = vet.__v + 1; // NEW VERSION
                     const ObjIndex = vetList.source.value.findIndex((obj) => obj._id == vet._id);
                     vetList.source.value[ObjIndex].name = vet.name;
                     vetList.source.value[ObjIndex].__v = vet.__v;
-                    d.resolve (vet);
+                    */
+                    d.resolve (data);
                 }, (err) => {
                     d.reject(err);
                 });
@@ -47,7 +49,7 @@ angular.module('vetService', ['rx'])
                 Resource.save({}, {
                     name: vet.name
                 }, (data) => {
-                    vetList.source.value.unshift(data)
+                    //vetList.source.value.unshift(data)
                     d.resolve (data);
                 },(err) => {
                     d.reject(err);
@@ -59,13 +61,35 @@ angular.module('vetService', ['rx'])
         this.delete = function (vet) {
             var d = $q.defer();
             Resource.delete({ id: vet._id }, (data) => {
+                /*
                 const index = vetList.source.value.indexOf(vet);
                 vetList.source.value.splice(index, 1);
+                */
                 d.resolve(data);
             }, (err) => {
                 d.reject(err);
             });
             return d.promise;
+        }
+
+
+        /************************************************
+         * SOCKET IO
+         ***********************************************/
+        this.socketPost = (vet) => {
+            vetList.source.value.unshift(vet);
+            vetSource.onNext(vetList.source.value)
+        }
+        this.socketPut = (vet) => {
+            const ObjIndex = vetList.source.value.findIndex((obj) => obj._id == vet._id);
+            vetList.source.value[ObjIndex].name = vet.name;
+            vetList.source.value[ObjIndex].__v = vet.__v;
+            vetSource.onNext(vetList.source.value);
+        }
+        this.socketDelete = (id) => {
+            const ObjIndex = vetList.source.value.findIndex((obj) => obj._id == id);
+            vetList.source.value.splice(ObjIndex, 1);
+            vetSource.onNext(vetList.source.value);
         }
 
 

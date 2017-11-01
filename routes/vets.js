@@ -64,7 +64,8 @@ module.exports = (router, io) => {
       if (err) {
         res.status(404).json(err);
       } else {
-        io.sockets.emit('vetDelete', data);
+        console.log(req.params.id)
+        io.sockets.emit('vetDelete', req.params.id);
         res.json(data);
       }
     });

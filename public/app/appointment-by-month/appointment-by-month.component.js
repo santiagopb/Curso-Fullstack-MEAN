@@ -38,7 +38,6 @@ angular.module('appointmentByMonth', ['appointmentService'])
                             return mapa;
                         }, {})
                         $scope.calendar = getCalendar(appointments, date);
-                        $scope.daySelected = {};
                     });
                 });
             }

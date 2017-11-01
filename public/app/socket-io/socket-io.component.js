@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('socketIo', [])
+angular.module('socketIo', ['appointmentService', 'customerService', 'petService', 'vetService'])
     .component('socketIo', {
         templateUrl:'/app/socket-io/socket-io.html',
-        controller: function($scope) {
+        controller: function(appointmentService, customerService, petService, vetService, $scope) {
             $scope.values = [];
             $('#textarea-io').trigger('autoresize');
             var socket = io.connect('http://localhost:3000', { 'forceNew': true });
             
             socket.on('messages', function(data) {
-                console.log(data);
+                //console.log(data);
             });
 
             /****************************************
@@ -17,15 +17,15 @@ angular.module('socketIo', [])
              ****************************************/
         
             socket.on('customerPost', function(data) {
-                $scope.values.unshift(data);
+                customerService.socketPost(data);
             });
 
             socket.on('customerPut', function(data) {
-                $scope.values.unshift(data);
+                customerService.socketPut(data);
             });
 
-            socket.on('customerDelete', function(data) {
-                $scope.values.unshift(data);
+            socket.on('customerDelete', function(id) {
+                customerService.socketDelete(id);
             });
 
             /****************************************
@@ -33,15 +33,15 @@ angular.module('socketIo', [])
              ****************************************/
 
             socket.on('petPost', function(data) {
-                $scope.values.unshift(data);
+                petService.socketPost(data);
             });
 
             socket.on('petPut', function(data) {
-                $scope.values.unshift(data);
+                petService.socketPut(data);
             });
 
-            socket.on('petDelete', function(data) {
-                $scope.values.unshift(data);
+            socket.on('petDelete', function(id) {
+                petService.socketDelete(id);
             });
 
             /****************************************
@@ -49,13 +49,13 @@ angular.module('socketIo', [])
              ****************************************/
 
             socket.on('vetPost', function(data) {
-                $scope.values.unshift(data);
+                vetService.socketPost(data);
             });
             socket.on('vetPut', function(data) {
-                $scope.values.unshift(data);
+                vetService.socketPut(data);
             });
-            socket.on('vetDelete', function(data) {
-                $scope.values.unshift(data);
+            socket.on('vetDelete', function(id) {
+                vetService.socketDelete(id);
             });
 
             /****************************************
@@ -63,13 +63,13 @@ angular.module('socketIo', [])
              ****************************************/
 
             socket.on('appointmentPost', function(data) {
-                $scope.values.unshift(data);
+                appointmentService.socketPost(data);
             });
             socket.on('appointmentPut', function(data) {
-                $scope.values.unshift(data);
+                appointmentService.socketPut(data);
             });
-            socket.on('appointmentDelete', function(data) {
-                $scope.values.unshift(data);
+            socket.on('appointmentDelete', function(id) {
+                appointmentService.socketDelete(id);
             });
         }
     });

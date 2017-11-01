@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('customerById', ['customerService'])
+angular.module('customerById', ['customerService', 'ui.select'])
     .component('customerById', {
         templateUrl:'/app/pet-edit/pet-details/customer-by-id/customer-by-id.html',
         bindings: {

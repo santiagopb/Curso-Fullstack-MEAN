@@ -70,9 +70,9 @@ module.exports = (router, io) => {
   router.delete('/customers/:id', (req, res, next) => {
     Customer.deleteOne({ _id: req.params.id }, (err, data) => {
       if (err) {
-        res.json(err);
+        res.status(404).json(err);
       } else {
-        io.sockets.emit('customerDelete', data);
+        io.sockets.emit('customerDelete', req.params.id);
         res.json(data);
       }
     });

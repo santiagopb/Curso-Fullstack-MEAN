@@ -1,5 +1,5 @@
 const express = require('express');
-const socket_io = require('socket.io')
+const socket_io = require('socket.io');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');

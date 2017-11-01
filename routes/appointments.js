@@ -38,6 +38,25 @@ module.exports = (router, io) => {
     	}
     });
 
+    router.get('/pets/:id/appointments', (req, res, next) => {
+        Appointment.find({pet: req.params.id}, (err, appointment) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.json(appointment);
+            }
+        }).populate({
+            path: 'pet',
+            model: 'Pet',
+            select: 'name specie',
+            populate: {
+                path: 'owner',
+                model: 'Customer',
+                select: 'firstName lastName'
+            }
+        }).sort({ 'initDate': 1 });
+    })
+
     router.get('/appointments/:initDate/:endDate', (req, res, next) => {
     	if (req.params.initDate && req.params.endDate){
             const initdate = moment(req.params.initDate, 'YYYYMMDD').toDate();

@@ -26,10 +26,10 @@ angular.module('showDatepicker', [])
 
 
 				if (ngModel) {
-
 					ngModel.$formatters.push(function (value) {
 						return moment(value).format('DD-MMMM-YYYY', 'es');
 					});
+					//scope.selectDate(date);
 				}
 
 				$('.datepicker').each(function () {

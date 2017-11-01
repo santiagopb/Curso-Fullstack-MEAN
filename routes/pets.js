@@ -31,7 +31,8 @@ module.exports = (router, io) => {
         }).sort({ '_id': -1 });
     });
 
-    router.get('/pets/:id/owner', function (req, res, next) {
+    //router.get('/pets/:id/owner', function (req, res, next) {
+    router.get('/customers/:id/pets', function (req, res, next) {
         Pet.find({ owner: req.params.id }, (err, pets) => {
             if (err) {
                 res.json({ success: false, message: err });
@@ -125,11 +126,11 @@ module.exports = (router, io) => {
     });
 
     router.delete('/pets/:id', (req, res, next) => {
-        Vet.deleteOne({ _id: req.params.id }, (err, data) => {
+        Pet.deleteOne({ _id: req.params.id }, (err, data) => {
             if (err) {
                 res.status(404).json(err);
             } else {
-                io.sockets.emit('petDelete', data);
+                io.sockets.emit('petDelete', req.params.id);
                 res.json(data);
             }
         });
