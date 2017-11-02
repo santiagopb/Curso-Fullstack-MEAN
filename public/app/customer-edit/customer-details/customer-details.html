@@ -1,39 +1,13 @@
-<form name="form">
 <div class="card">
   <div class="card-content">
     <span class="card-title">DATOS PERSONALES</span>
     <div class="row">
-      <div class="input-field">
-        <input id="first_name" type="text" ng-model="$ctrl.item.firstName" class="validate" name="first_name" ng-minlength="3" required="string">
-        <span class="red-text" ng-show="form.first_name.$error.minlength">El nombre debe tener mas de 2 letras</span>
-        <span class="red-text" ng-show="form.first_name.$error.required">El nombre es obligatorio</span>
-        <label class="active" for="first_name">Nombre:</label>
-      </div>
-      <div class="input-field">
-        <input id="last_name" type="text" ng-model="$ctrl.item.lastName" class="validate" name="last_name" ng-minlength="2" required="string">
-        <span class="red-text" ng-show="form.last_name.$error.minlength">El nombre debe tener mas de 2 letras</span>
-        <span class="red-text" ng-show="form.last_name.$error.required">El nombre es obligatorio</span>
-        <label class="active" for="last_name">Apellido:</label>
-      </div>
-      <div class="input-field">
-        <input id="dni" type="text" ng-model="$ctrl.item.dni" class="validate" name="dni" ng-pattern="/^\d{8}[a-zA-Z]{1}$|^[a-zA-Z][0-9]{7}[a-zA-Z]$/"> 
-        <span class="red-text" ng-show="form.dni.$error.pattern">DNI Invalido</span>
-        <label class="active" for="dni">DNI:</label>
-      </div>
-      <div class="input-field">
-        <input id="phone" type="text" ng-model="$ctrl.item.phone" class="validate" name="phone" v-integer>
-        <span ng-show="form.phone.$error.integer">El valor es invalido!</span>
-        <label class="active" for="phone">Teléfono:</label>
-      </div>
-      <div class="input-field">
-        <input id="email" type="email" ng-model="$ctrl.item.email" class="validate" name="email" email>
-        <label class="active" for="email" data->Email:</label>
-      </div>
-      <div class="input-field">
-        <textarea id="note" ng-model="$ctrl.item.note" class="materialize-textarea"></textarea>
-        <label class="active" for="note">Nota:</label>
-      </div>
+      <input-customer name="firstName" ng-model="$ctrl.item.firstName" model="$ctrl.item.firstName" label="Nombre:"></input-customer>
+      <input-customer name="lastName" ng-model="$ctrl.item.lastName" model="$ctrl.item.lastName" label="Apellido:"></input-customer>
+      <input-customer name="dni" ng-model="$ctrl.item.dni" model="$ctrl.item.dni" label="DNI:"></input-customer>
+      <input-customer name="phone" ng-model="$ctrl.item.phone" model="$ctrl.item.phone" label="Teléfono:"></input-customer>
+      <input-customer name="email" ng-model="$ctrl.item.email" model="$ctrl.item.email" label="Email:"></input-customer>
+      <input-customer name="note" ng-model="$ctrl.item.note" model="$ctrl.item.note" label="Nota:"></input-customer>
     </div>
   </div>
 </div>
-</form>

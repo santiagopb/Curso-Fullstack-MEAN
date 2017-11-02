@@ -14,6 +14,10 @@ angular.module('customerEdit', ['customerService'])
             }
 
             $scope.$on("saveItem", function (evt, customer) {
+                if($('.ng-invalid').length > 0 || $('.invalid').length > 0){
+                    $scope.$emit('toast', 'Hay errores en el formulario');
+                    return;
+                }
                 customerService.save(customer).then(
                     (res) => {
                         $scope.item = res;

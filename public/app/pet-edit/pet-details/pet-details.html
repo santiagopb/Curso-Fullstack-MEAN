@@ -4,30 +4,15 @@
         <div class="row">
             <customer-by-id id="$ctrl.item.owner._id"></customer-by-id>
             <pet-upload-file pet="$ctrl.pet" item="$ctrl.item"></pet-upload-file>
-            <div class="input-field">
-                <input id="name" type="text" ng-model="$ctrl.item.name" class="validate">
-                <label class="active" for="name">Nombre</label>
-            </div>
+            <input-pet name="name" model="$ctrl.item.name" ng-model="$ctrl.item.name" label="Nombre"></input-pet>
             <div class="input-field">
                 <input id="birthday" type="text" ng-model="$ctrl.item.birthday" class="datepicker" show-datepicker>
                 <label class="active" for="birthday">Fecha de Nacimiento</label>
             </div>
-            <div class="input-field">
-                <input id="specie" type="text" ng-model="$ctrl.item.specie" class="validate">
-                <label class="active" for="specie">Especie</label>
-            </div>
-            <div class="input-field">
-                <input id="race" type="text" ng-model="$ctrl.item.race" class="validate">
-                <label class="active" for="race">Raza</label>
-            </div>
-            <div class="input-field">
-                <input id="chipNumber" type="text" ng-model="$ctrl.item.chipNumber" class="validate">
-                <label class="active" for="chipNumber">Numero de Chip</label>
-            </div>
-            <div class="input-field">
-                <input id="description" type="text" ng-model="$ctrl.item.description" class="validate">
-                <label class="active" for="description">Descripcion</label>
-            </div>
+            <input-pet name="specie" model="$ctrl.item.specie" ng-model="$ctrl.item.specie" label="Especie"></input-pet>
+            <input-pet name="race" model="$ctrl.item.race" ng-model="$ctrl.item.race" label="Raza"></input-pet>
+            <input-pet name="chipNumber" model="$ctrl.item.chipNumber" ng-model="$ctrl.item.chipNumber" label="Numero de Chip"></input-pet>
+            <input-pet name="description" model="$ctrl.item.description" ng-model="$ctrl.item.description" label="Descripción"></input-pet>
         </div>
     </div>
 </div>

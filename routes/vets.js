@@ -1,5 +1,5 @@
 const Vet = require('../models/vet');
-
+const Validators = require('../public/app/validation/validators');
 module.exports = (router, io) => {
 
   router.get('/vets', function (req, res, next) {
@@ -23,8 +23,9 @@ module.exports = (router, io) => {
   });
 
   router.post('/vets', (req, res, next) => {
-    if (!req.body.name) {
-      res.json({ success: false, message: 'Debes escribir un nombre para el Veterinario' });
+    validationErrors = Validators.validateVet(req.body);
+    if (validationErrors) {
+      res.status(400).send(validationErrors);
       return;
     }
     const vet = new Vet({
@@ -41,12 +42,11 @@ module.exports = (router, io) => {
   });
 
   router.put('/vets/:id', (req, res, next) => {
-    if (!req.body.name) {
-      console.log('No name');
-      res.status(404).json(err);
+    validationErrors = Validators.validateVet(req.body);
+    if (validationErrors) {
+      res.status(400).send(validationErrors);
       return;
     }
-
     var version = req.body.__v;
     req.body.__v++;
     Vet.findOneAndUpdate({ _id: req.params.id, __v: version}, req.body, {new : true}, (err, data) => {

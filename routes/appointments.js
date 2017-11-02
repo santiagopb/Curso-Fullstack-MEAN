@@ -3,6 +3,7 @@ const Pet = require('../models/pet');
 const Customer = require('../models/customer');
 const Vet = require('../models/vet');
 const moment = require('moment');
+const Validators = require('../public/app/validation/validators');
 moment.updateLocale('es', null);
 
 module.exports = (router, io) => {
@@ -89,19 +90,11 @@ module.exports = (router, io) => {
     });
 
     router.post('/appointments', (req, res, next) => {
-        if (!req.body.initDate) {
-            res.status(404).json({ success: false, message: 'Debes escribir una fecha de inicio para esta cita' });
-            return;
+        validationErrors = Validators.validateAppointment(req.body);
+        if (validationErrors) {
+          res.status(400).send(validationErrors);
+          return;
         }
-        if (!req.body.endDate) {
-            res.status(404).json({ success: false, message: 'Debes escribir una fecha de fin para esta cita' });
-            return;
-        }
-        if (!req.body.pet) {
-            res.status(404).json({ success: false, message: 'Debes especificar una mascota' });
-            return;
-        }
-
         const appointment = new Appointment({
             initDate: req.body.initDate,
             endDate: req.body.endDate,
@@ -137,10 +130,13 @@ module.exports = (router, io) => {
     });
     
     router.put('/appointments/:id', (req, res, next) => {
-
+        validationErrors = Validators.validateAppointment(req.body);
+        if (validationErrors) {
+          res.status(400).send(validationErrors);
+          return;
+        }
         var version = req.body.__v;
         req.body.__v++;
-
     	Appointment.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, {new : true}, (err, appointment) => {
           if (err) {
             res.status(404).json(err);

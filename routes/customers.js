@@ -1,5 +1,5 @@
 const Customer = require('../models/customer');
-
+const Validators = require('../public/app/validation/validators');
 module.exports = (router, io) => {
 
 
@@ -24,11 +24,11 @@ module.exports = (router, io) => {
   });
 
   router.post('/customers', (req, res, next) => {
-    if (!req.body.dni) {
-      res.status(404).json({ success: false, message: 'Debes escribir un DNI' });
-      next();
+    validationErrors = Validators.validateCustomer(req.body);
+    if (validationErrors) {
+      res.status(400).send(validationErrors);
+      return;
     }
-    // Create new Client
     const customer = new Customer({
       dni: req.body.dni,
       firstName: req.body.firstName,
@@ -49,14 +49,13 @@ module.exports = (router, io) => {
 
 
   router.put('/customers/:id', (req, res, next) => {
-    if (!req.body.dni) {
-      res.status(404).json({ success: false, message: 'Debes escribir un DNI' });
-      next();
+    validationErrors = Validators.validateCustomer(req.body);
+    if (validationErrors) {
+      res.status(400).send(validationErrors);
+      return;
     }
-
     var version = req.body.__v;
     req.body.__v++;
-
     Customer.findOneAndUpdate({ _id: req.params.id, __v: version }, req.body, {new : true}, (err, data) => {
       if (err) {
         res.status(404).json(err);

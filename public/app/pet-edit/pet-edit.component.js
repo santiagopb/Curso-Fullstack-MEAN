@@ -13,6 +13,10 @@ angular.module('petEdit', ['petService'])
             }
             
             $scope.$on("saveItem", function (evt, pet) {
+                if($('.ng-invalid').length > 0 || $('.invalid').length > 0){
+                    $scope.$emit('toast', 'Hay errores en el formulario');
+                    return;
+                }
                 petService.save(pet).then(
                     (res) => {
                         $scope.item = res;

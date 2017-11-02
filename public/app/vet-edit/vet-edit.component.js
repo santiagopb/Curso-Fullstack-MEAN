@@ -13,6 +13,10 @@ angular.module('vetEdit', ['vetService'])
             }
             
             $scope.$on("saveItem", function (evt, vet) {
+                if($('.ng-invalid').length > 0 || $('.invalid').length > 0){
+                    $scope.$emit('toast', 'Hay errores en el formulario');
+                    return;
+                }
                 vetService.save(vet).then(
                     (res) => {
                         $scope.item = res;
@@ -21,6 +25,7 @@ angular.module('vetEdit', ['vetService'])
                     (err) => {
                         $scope.$emit('toast', 'Error:' + err)
                     });
+                    
             });
         }
     });
