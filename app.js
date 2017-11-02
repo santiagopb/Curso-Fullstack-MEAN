@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Database Conection
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/petStore', { useMongoClient: true });
-mongoose.connect(process.env.MONGOURI,  { useMongoClient: true });
+mongoose.connect('mongodb://localhost/petStore', { useMongoClient: true });
+//mongoose.connect(process.env.MONGOURI,  { useMongoClient: true });
 
 // Use Routes
 app.use('/api', customers);
