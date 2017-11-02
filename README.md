@@ -61,9 +61,9 @@ La estructura queda de la siguiente forma:
 |    |  api/pets/:id  |  {JSON}  |  {JSON} |
 |    |  api/vets/:id  |  {JSON}  |  {JSON}  |
 |    |  api/appointments/:id  |  {JSON}  |  {JSON} |
-|  DELETE  |  api/customers/:id  |  {JSON}  |  <JSON>  |
+|  DELETE  |  api/customers/:id  |  {JSON}  |  {JSON}  |
 |    |  api/pets/:id  |  {JSON}  |  {JSON} |
-|    |  api/vets/:id  |  {JSON}  |  <JSON>  |
+|    |  api/vets/:id  |  {JSON}  |  {JSON}  |
 |    |  api/appointments/:id  |  {JSON}  |  {JSON} |
 
 # Lista de Customers
