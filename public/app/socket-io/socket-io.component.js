@@ -6,7 +6,7 @@ angular.module('socketIo', ['appointmentService', 'customerService', 'petService
         controller: function(appointmentService, customerService, petService, vetService, $scope) {
             $scope.values = [];
             $('#textarea-io').trigger('autoresize');
-            var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+            var socket = io.connect();
             
             socket.on('messages', function(data) {
                 //console.log(data);
