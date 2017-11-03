@@ -64,10 +64,10 @@ La estructura queda de la siguiente forma:
 |    |  api/pets/:id  |  {JSON}  |  {JSON} |
 |    |  api/vets/:id  |  {JSON}  |  {JSON}  |
 |    |  api/appointments/:id  |  {JSON}  |  {JSON} |
-|  DELETE  |  api/customers/:id  |  {JSON}  |  {JSON}  |
-|    |  api/pets/:id  |  {JSON}  |  {JSON} |
-|    |  api/vets/:id  |  {JSON}  |  {JSON}  |
-|    |  api/appointments/:id  |  {JSON}  |  {JSON} |
+|  DELETE  |  api/customers/:id  |    |  {JSON}  |
+|    |  api/pets/:id  |    |  {JSON} |
+|    |  api/vets/:id  |    |  {JSON}  |
+|    |  api/appointments/:id  |    |  {JSON} |
 
 # Lista de Customers
 ![listaclientes](https://user-images.githubusercontent.com/14046000/32351779-e6a93ba8-c01e-11e7-9a2c-e4337b6ef7e6.png)
