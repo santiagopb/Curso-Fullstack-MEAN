@@ -22,7 +22,7 @@ const appointments = require('./routes/appointments')(router, io);
 
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'images', 'favicon.png')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
