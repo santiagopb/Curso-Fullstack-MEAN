@@ -8,7 +8,7 @@ http://santiagopereira.herokuapp.com/
 ## Instalación local
 ```bash
 git clone https://github.com/santiagopb/Curso-Fullstack-MEAN-Octubre2017.git
-cd santiago
+cd Curso-Fullstack-MEAN-Octubre2017
 npm install
 npm start
 ```
