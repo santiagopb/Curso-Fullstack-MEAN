@@ -7,8 +7,8 @@ http://santiagopereira.herokuapp.com/
 
 ## Instalación local
 ```bash
-git clone https://github.com/santiagopb/Curso-Fullstack-MEAN-Octubre2017.git
-cd Curso-Fullstack-MEAN-Octubre2017
+git clone https://github.com/santiagopb/Curso-Fullstack-MEAN.git
+cd Curso-Fullstack-MEAN
 npm install
 npm start
 ```
@@ -88,52 +88,52 @@ La estructura queda de la siguiente forma:
 # Pasos para la implementación de del CRUD de “Customer”
 
 ## Schema
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/models/appointment.js#L9
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/models/appointment.js#L9
 
 ## Enlace a la línea de definición de la URL para CRUD de Customers
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/app.js#L32
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/app.js#L32
 
 ## Customer-list.component.js
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/public/app/customer-list/customer-list.component.js#L3
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/public/app/customer-list/customer-list.component.js#L3
 
 ## Customer-list.html
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/public/app/customer-list/customer-list.html#L1
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/public/app/customer-list/customer-list.html#L1
 
 ## Configuración en el módulo
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/public/app/app.module.js#L17
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/public/app/app.module.js#L17
 
 ## Ruta Angular
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/public/app/app.config.js#L13
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/public/app/app.config.js#L13
 
 ## Fichero incluido en el index
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/master/public/index.html#L40
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/master/public/index.html#L40
 
 ## Servicios Angular con promesas
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L34
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L34
 
 ## Validaciones
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/validation/validators.js#L1
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/validation/validators.js#L1
 
 ## Angular Resource
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L6
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L6
 
 
 ## Eventos
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/appointment-by-month/appointment-by-month.component.js#L80
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/appointment-by-month/appointment-by-month.component.js#L80
 
 
 ## Simplificar maquetación con directivas
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/directives/input-validator.directive.js#L6
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/directives/input-validator.directive.js#L6
 
 
 ## OptimisticLocking
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/routes/customers.js#L57
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/routes/customers.js#L57
 
 
 ## SocketIO
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/bin/www#L29
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/bin/www#L29
 
 
 ## Rxjs
-https://github.com/Curso-Fullstack-MEAN-Octubre2017/santiago/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L18
+https://github.com/santiagopb/Curso-Fullstack-MEAN/blob/ca44b22811770c6bc5ee154578dda5a1f1cfc58e/public/app/services/customer.service.js#L18
 
