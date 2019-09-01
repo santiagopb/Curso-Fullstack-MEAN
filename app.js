@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Database Conection
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOURI || 'mongodb://localhost/petStore',  { useMongoClient: true });
+mongoose.connect(process.env.MONGOURI || 'mongodb://localhost/petStore',  { useNewUrlParser: true });
 
 // Use Routes
 app.use('/api', customers);
