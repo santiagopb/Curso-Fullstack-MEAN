@@ -2,9 +2,6 @@
 PetStore es una aplicación demo operativa realizada como parte del curso de programación Fullstack-Mean. Entre las tecnologías usadas en el proyecto tenemos:
 ###### Mongodb, Express, Angularjs V1.5.8, Nodejs, Socket.io, Rxjs
 
-# DEMO
-http://santiagopereira.herokuapp.com/
-
 ## Instalación local
 ```bash
 git clone https://github.com/santiagopb/Curso-Fullstack-MEAN.git
